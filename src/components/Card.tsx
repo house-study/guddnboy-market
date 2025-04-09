@@ -1,6 +1,4 @@
-{
-  /* [TODO] json-server에서 데이터 가져오는 것으로 수정 */
-}
+/* [TODO] json-server에서 데이터 가져오는 것으로 수정 */
 const TEMP_ARRAY = Array(16).fill(null);
 
 const Card = () => {
