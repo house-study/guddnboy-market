@@ -19,7 +19,7 @@ const Card = () => {
             );
           })}
         </div>
-      </body>
+      </div>
     </div>
   );
 };
