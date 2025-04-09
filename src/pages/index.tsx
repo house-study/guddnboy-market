@@ -5,7 +5,9 @@ const Home = () => {
   return (
     <div className="flex flex-col items-center justify-center">
       <Header />
-      <Card />
+      <div className="h-screen overflow-y-scroll">
+        <Card />
+      </div>
     </div>
   );
 };
