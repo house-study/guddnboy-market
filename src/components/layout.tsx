@@ -7,6 +7,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         </div>
       </header>
       <main className="w-full max-w-7xl p-4">{children}</main>
+      <footer className="w-full p-4 text-center">
+        <p>2025 House Study</p>
+      </footer>
     </div>
   );
 }
