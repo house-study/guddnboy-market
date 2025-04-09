@@ -1,7 +1,7 @@
 /* [TODO] json-server에서 데이터 가져오는 것으로 수정 */
 const TEMP_ARRAY = Array(16).fill(null);
 
-const Card = () => {
+const ProductList = () => {
   return (
     <div className="h-screen overflow-y-scroll">
       <div className="grid grid-cols-4 flex-col items-center justify-center gap-8 max-xl:grid-cols-3 max-lg:grid-cols-2 max-sm:grid-cols-1">
@@ -21,4 +21,4 @@ const Card = () => {
     </div>
   );
 };
-export default Card;
+export default ProductList;
