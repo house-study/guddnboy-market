@@ -7,7 +7,7 @@ const Card = () => {
   return (
     <div className="flex flex-col items-center justify-center">
       <body>
-        <div className="grid grid-cols-4 gap-8">
+        <div className="grid grid-cols-4 gap-8 max-xl:grid-cols-3 max-lg:grid-cols-2 max-sm:grid-cols-1">
           {TEMP_ARRAY.map((_, index) => {
             return (
               <div
