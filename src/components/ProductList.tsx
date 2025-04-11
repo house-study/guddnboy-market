@@ -3,7 +3,7 @@ const TEMP_ARRAY = Array(16).fill(null);
 
 const ProductList = () => {
   return (
-    <div className="h-screen overflow-y-scroll">
+    <div className="h-screen w-full max-w-7xl overflow-y-scroll p-4">
       <div className="grid grid-cols-4 flex-col items-center justify-center gap-8 max-xl:grid-cols-3 max-lg:grid-cols-2 max-sm:grid-cols-1">
         {TEMP_ARRAY.map((_, index) => {
           return (
