@@ -1,25 +1,17 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
+import { fetchProducts } from '@/api/products';
 
 const ProductList = () => {
   const [products, setProducts] = useState<Product[]>([]);
 
-  const fetchProducts = async () => {
-    try {
-      const response = await axios.get(`${API_URL}/products`);
-      const data = response.data;
-      setProducts(data);
-      return;
-    } catch (error) {
-      console.error(error);
-      return [];
-    }
+  const loadProducts = async () => {
+    const fetchedProducts = await fetchProducts();
+    setProducts(fetchedProducts);
   };
 
   useEffect(() => {
-    fetchProducts();
+    loadProducts();
   }, []);
 
   return (
