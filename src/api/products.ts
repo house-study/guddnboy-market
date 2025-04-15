@@ -9,6 +9,5 @@ export const fetchProducts = async () => {
     return data;
   } catch (error) {
     console.error(error);
-    return [];
   }
 };
