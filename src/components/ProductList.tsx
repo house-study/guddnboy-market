@@ -5,12 +5,11 @@ import { getProducts } from '@/api/products';
 const ProductList = () => {
   const [products, setProducts] = useState<Product[]>([]);
 
-  const loadProducts = async () => {
-    const productsData = await getProducts();
-    setProducts(productsData);
-  };
-
   useEffect(() => {
+    const loadProducts = async () => {
+      const productsData = await getProducts();
+      setProducts(productsData);
+    };
     loadProducts();
   }, []);
 
