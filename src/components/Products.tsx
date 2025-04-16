@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import { getProducts } from '@/api/products';
 
-const ProductList = () => {
+const Products = () => {
   const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
@@ -39,4 +39,4 @@ const ProductList = () => {
     </div>
   );
 };
-export default ProductList;
+export default Products;
