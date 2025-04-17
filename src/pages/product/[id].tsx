@@ -75,10 +75,10 @@ export default function ProductDetail() {
         </div>
 
         <div className="mt-6 flex gap-2">
-          <button className="flex-1 bg-black py-3 text-sm font-semibold text-white hover:bg-gray-800">
+          <button className="flex-1 bg-black py-3 text-sm font-semibold text-white hover:cursor-pointer hover:bg-gray-800">
             BUY
           </button>
-          <button className="flex-1 border border-black py-3 text-sm font-semibold hover:bg-gray-100">
+          <button className="flex-1 border border-black py-3 text-sm font-semibold hover:cursor-pointer hover:bg-gray-200">
             ADD TO CART
           </button>
         </div>
