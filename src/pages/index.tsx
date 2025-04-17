@@ -1,10 +1,10 @@
 import Layout from '@/components/layout';
-import ProductList from '@/components/ProductList';
+import Products from '@/components/Products';
 
 const Home = () => {
   return (
     <Layout>
-      <ProductList />
+      <Products />
     </Layout>
   );
 };
