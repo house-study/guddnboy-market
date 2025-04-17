@@ -36,7 +36,7 @@ export default function ProductDetail() {
         <img
           src={product.imageURL}
           alt={product.name}
-          className="w-[300px] object-cover shadow-md md:w-[400px]"
+          className="w-96 object-cover shadow-md"
         />
       </div>
 
