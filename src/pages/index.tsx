@@ -1,12 +1,7 @@
-import Layout from '@/components/layout';
 import Products from '@/components/Products';
 
 const Home = () => {
-  return (
-    <Layout>
-      <Products />
-    </Layout>
-  );
+  return <Products />;
 };
 
 export default Home;
