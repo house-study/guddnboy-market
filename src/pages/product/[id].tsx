@@ -24,7 +24,7 @@ export default function ProductDetail() {
     if (params?.id) {
       loadProductDetail(Number(params.id));
     }
-  }, [params]);
+  }, [params?.id]);
 
   if (isError) {
     return <ErrorComponent message={isError.message} />;
