@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 
 import { getProductDetail } from '@/api/products';
 import ErrorComponent from '@/components/ErrorComponent';
+import { formattedPrice } from '@/utils/price';
 
 export default function ProductDetail() {
   const params = useParams();
@@ -41,7 +42,7 @@ export default function ProductDetail() {
         <h1 className="text-2xl font-bold text-gray-800">{product.name}</h1>
         <p className="text-gray-500">{product.description}</p>
         <p className="text-xl font-semibold text-gray-900">
-          {product.price?.toLocaleString()}원
+          {formattedPrice(product.price)}원
         </p>
         <div className="mt-4 space-y-3">
           <input
@@ -57,7 +58,7 @@ export default function ProductDetail() {
           />
           <div className="flex items-center justify-between text-lg font-bold text-gray-800">
             <span>총 상품 금액</span>
-            <span>{totalPrice.toLocaleString()}원</span>
+            <span>{formattedPrice(totalPrice)}원</span>
           </div>
         </div>
         <div className="mt-6 flex gap-2">

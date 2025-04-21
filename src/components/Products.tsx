@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 
 import { getProducts } from '@/api/products';
 import ErrorComponent from '@/components/ErrorComponent';
+import { formattedPrice } from '@/utils/price';
 
 const Products = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -38,10 +39,7 @@ const Products = () => {
               />
               <div className="text-center text-lg">{product.name}</div>
               <div className="text-center text-sm text-gray-500">
-                {product.price.toLocaleString('ko-KR', {
-                  style: 'currency',
-                  currency: 'KRW',
-                })}
+                {formattedPrice(product.price)}원
               </div>
             </div>
           </Link>
