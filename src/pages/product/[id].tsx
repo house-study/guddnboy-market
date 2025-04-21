@@ -20,12 +20,10 @@ export default function ProductDetail() {
         setIsError(error as Error);
       }
     };
-
     if (params?.id) {
       loadProductDetail(Number(params.id));
     }
   }, [params?.id]);
-
   if (isError) {
     return <ErrorComponent message={isError.message} />;
   }
@@ -39,20 +37,16 @@ export default function ProductDetail() {
           className="w-96 object-cover shadow-md"
         />
       </div>
-
       <div className="flex-1 space-y-4">
         <h1 className="text-2xl font-bold text-gray-800">{product.name}</h1>
         <p className="text-gray-500">{product.description}</p>
-
         <p className="text-xl font-semibold text-gray-900">
           {product.price?.toLocaleString()}원
         </p>
-
         <div className="space-y-1 text-sm text-gray-500">
           <p>주말 / 공휴일을 제외한 1 - 2일 내 수령</p>
           <p>4만원 이상 구매시 배송비 무료</p>
         </div>
-
         <div className="mt-4 space-y-3">
           <p className="text-sm text-gray-500">
             현재 재고량 : {product.amount || 1}
@@ -73,7 +67,6 @@ export default function ProductDetail() {
             <span>{totalPrice.toLocaleString()}원</span>
           </div>
         </div>
-
         <div className="mt-6 flex gap-2">
           <button className="flex-1 bg-black py-3 text-sm font-semibold text-white hover:cursor-pointer hover:bg-gray-800">
             BUY
