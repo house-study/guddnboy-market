@@ -43,14 +43,7 @@ export default function ProductDetail() {
         <p className="text-xl font-semibold text-gray-900">
           {product.price?.toLocaleString()}원
         </p>
-        <div className="space-y-1 text-sm text-gray-500">
-          <p>주말 / 공휴일을 제외한 1 - 2일 내 수령</p>
-          <p>4만원 이상 구매시 배송비 무료</p>
-        </div>
         <div className="mt-4 space-y-3">
-          <p className="text-sm text-gray-500">
-            현재 재고량 : {product.amount || 1}
-          </p>
           <input
             type="number"
             min="1"
