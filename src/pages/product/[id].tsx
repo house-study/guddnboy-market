@@ -1,32 +1,42 @@
-import { useParams } from 'next/navigation';
-import { useState, useEffect } from 'react';
+import { GetServerSidePropsContext } from 'next';
+import { useState } from 'react';
 
 import { getProductDetail } from '@/api/products';
 import ErrorComponent from '@/components/ErrorComponent';
 import { formattedPrice } from '@/utils/price';
 
-export default function ProductDetail() {
-  const params = useParams();
-  const [product, setProduct] = useState<Product>({} as Product);
-  const [isError, setIsError] = useState<Error | null>(null);
-  const [totalPrice, setTotalPrice] = useState<number>(0);
-
-  useEffect(() => {
-    const loadProductDetail = async (id: number) => {
-      try {
-        const productData = await getProductDetail(id);
-        setProduct(productData);
-        setTotalPrice(productData?.price || 0);
-      } catch (error) {
-        setIsError(error as Error);
-      }
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const { id } = context.query;
+  const numbericId = Number(id);
+  try {
+    const product = await getProductDetail(numbericId);
+    return {
+      props: {
+        product,
+      },
     };
-    if (params?.id) {
-      loadProductDetail(Number(params.id));
-    }
-  }, [params?.id]);
-  if (isError) {
-    return <ErrorComponent message={isError.message} />;
+  } catch (error) {
+    return {
+      props: {
+        error: {
+          message: '상품을 불러오는 데 실패했습니다.',
+        },
+      },
+    };
+  }
+}
+
+export default function ProductDetail({
+  product,
+  error,
+}: {
+  product: Product;
+  error: { message: string };
+}) {
+  const [totalPrice, setTotalPrice] = useState<number>(product.price || 0);
+
+  if (error) {
+    return <ErrorComponent message={error.message} />;
   }
 
   return (
