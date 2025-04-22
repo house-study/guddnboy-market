@@ -1,9 +1,9 @@
 import { GetServerSidePropsContext } from 'next';
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 
 import { getProductDetail } from '@/api/products';
 import ErrorComponent from '@/components/ErrorComponent';
-import { formattedPrice } from '@/utils/price';
+import { formattedPrice, calculateTotalPrice } from '@/utils/price';
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { id } = context.query;
@@ -35,6 +35,11 @@ export default function ProductDetail({
 }) {
   const [totalPrice, setTotalPrice] = useState<number>(product.price || 0);
 
+  const handlePriceChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const newTotalPrice = calculateTotalPrice(e, product.price);
+    setTotalPrice(newTotalPrice);
+  };
+
   if (error) {
     return <ErrorComponent message={error.message} />;
   }
@@ -61,10 +66,7 @@ export default function ProductDetail({
             max={product.amount || 1}
             defaultValue="1"
             className="w-full rounded border border-gray-300 px-3 py-2 text-sm focus:ring-2 focus:ring-lime-400 focus:outline-none"
-            onChange={e => {
-              const quantity = Number(e.target.value);
-              setTotalPrice(quantity * (product.price || 0));
-            }}
+            onChange={e => handlePriceChange(e)}
           />
           <div className="flex items-center justify-between text-lg font-bold text-gray-800">
             <span>총 상품 금액</span>
