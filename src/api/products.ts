@@ -2,9 +2,9 @@ import axios from 'axios';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-export const getProducts = async (): Promise<Product[]> => {
+export const getProducts = async () => {
   try {
-    const response = await axios.get(`${API_URL}/products`);
+    const response = await axios.get<Product[]>(`${API_URL}/products`);
     const data = response.data;
     return data;
   } catch (error) {
@@ -12,9 +12,9 @@ export const getProducts = async (): Promise<Product[]> => {
   }
 };
 
-export const getProductDetail = async (id: number): Promise<Product> => {
+export const getProductDetail = async (id: number) => {
   try {
-    const response = await axios.get(`${API_URL}/products/${id}`);
+    const response = await axios.get<Product>(`${API_URL}/products/${id}`);
     const data = response.data;
     return data;
   } catch (error) {
