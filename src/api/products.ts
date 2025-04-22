@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-export const getProducts = async () => {
+export const getProducts = async (): Promise<Product[]> => {
   try {
     const response = await axios.get(`${API_URL}/products`);
     const data = response.data;
@@ -12,7 +12,7 @@ export const getProducts = async () => {
   }
 };
 
-export const getProductDetail = async (id: number) => {
+export const getProductDetail = async (id: number): Promise<Product> => {
   try {
     const response = await axios.get(`${API_URL}/products/${id}`);
     const data = response.data;
