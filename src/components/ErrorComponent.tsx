@@ -18,13 +18,13 @@ const ErrorComponent = ({ message }: ErrorComponentProps) => {
       <div className="flex gap-4">
         <button
           onClick={reloadPage}
-          className="trainsition rounded-md bg-lime-400 px-6 py-3 text-white duration-200 hover:bg-lime-500"
+          className="rounded-md bg-lime-400 px-6 py-3 text-white transition duration-200 hover:bg-lime-500"
         >
           새로고침
         </button>
         <button
           onClick={navigateToHome}
-          className="trainsition rounded-md bg-gray-300 px-6 py-3 text-gray-800 hover:bg-gray-400"
+          className="rounded-md bg-gray-300 px-6 py-3 text-gray-800 transition hover:bg-gray-400"
         >
           홈으로 돌아가기
         </button>
