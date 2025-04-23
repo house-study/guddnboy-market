@@ -66,7 +66,7 @@ export default function ProductDetail({
             max={product.amount || 1}
             defaultValue="1"
             className="w-full rounded border border-gray-300 px-3 py-2 text-sm focus:ring-2 focus:ring-lime-400 focus:outline-none"
-            onChange={e => handlePriceChange(e)}
+            onChange={handlePriceChange}
           />
           <div className="flex items-center justify-between text-lg font-bold text-gray-800">
             <span>총 상품 금액</span>
