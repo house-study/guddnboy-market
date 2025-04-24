@@ -44,7 +44,8 @@ export default function ProductDetail({
   const [totalPrice, setTotalPrice] = useState<number>(product.price);
 
   const handlePriceChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const newTotalPrice = calculateTotalPrice(e, product.price);
+    const quantity = Number(e.target.value);
+    const newTotalPrice = calculateTotalPrice(quantity, product.price);
     setTotalPrice(newTotalPrice);
   };
 

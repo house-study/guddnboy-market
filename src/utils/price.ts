@@ -1,5 +1,3 @@
-import { ChangeEvent } from 'react';
-
 export const formattedPrice = (price: number): string => {
   const formattedPrice = price?.toLocaleString('ko-KR', {
     style: 'currency',
@@ -9,9 +7,9 @@ export const formattedPrice = (price: number): string => {
 };
 
 export const calculateTotalPrice = (
-  e: ChangeEvent<HTMLInputElement>,
+  quantity: number,
   price: number,
 ): number => {
-  const totalPrice = Number(e.target.value) * (price || 0);
+  const totalPrice = quantity * (price || 0);
   return totalPrice;
 };
