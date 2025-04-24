@@ -1,14 +1,18 @@
+import { useRouter } from 'next/router';
+
 type ErrorComponentProps = {
   message: string;
 };
 
 const ErrorComponent = ({ message }: ErrorComponentProps) => {
+  const router = useRouter();
+
   const reloadPage = () => {
     window.location.reload();
   };
 
   const navigateToHome = () => {
-    window.location.href = '/';
+    router.push('/');
   };
 
   return (
