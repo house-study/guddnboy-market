@@ -33,12 +33,6 @@ export default function ProductDetail({
   product?: Product;
   error?: { message: string };
 }) {
-  const [totalPrice, setTotalPrice] = useState<number>(product?.price || 0);
-
-  const handlePriceChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const newTotalPrice = calculateTotalPrice(e, product?.price);
-    setTotalPrice(newTotalPrice);
-  };
   if (error || !product) {
     return (
       <div className="flex min-h-screen items-center justify-center">
@@ -46,6 +40,13 @@ export default function ProductDetail({
       </div>
     );
   }
+
+  const [totalPrice, setTotalPrice] = useState<number>(product.price);
+
+  const handlePriceChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const newTotalPrice = calculateTotalPrice(e, product.price);
+    setTotalPrice(newTotalPrice);
+  };
 
   return (
     <div className="flex flex-col gap-12 p-10 md:flex-row md:items-center md:justify-center">

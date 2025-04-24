@@ -1,6 +1,6 @@
 import { ChangeEvent } from 'react';
 
-export const formattedPrice = (price: number | undefined): string => {
+export const formattedPrice = (price: number): string => {
   const formattedPrice = price?.toLocaleString('ko-KR', {
     style: 'currency',
     currency: 'KRW',
@@ -10,7 +10,7 @@ export const formattedPrice = (price: number | undefined): string => {
 
 export const calculateTotalPrice = (
   e: ChangeEvent<HTMLInputElement>,
-  price: number | undefined,
+  price: number,
 ): number => {
   const totalPrice = Number(e.target.value) * (price || 0);
   return totalPrice;
