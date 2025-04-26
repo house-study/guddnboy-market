@@ -15,11 +15,20 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         product,
       },
     };
-  } catch (error) {
+  } catch (error: Error | unknown) {
+    if (error instanceof Error) {
+      return {
+        props: {
+          error: {
+            message: error.message,
+          },
+        },
+      };
+    }
     return {
       props: {
         error: {
-          message: '상품을 불러오는 데 실패했습니다.',
+          message: '알 수 없는 오류가 발생했습니다. 잠시 후 다시 시도해주세요.',
         },
       },
     };
@@ -30,19 +39,24 @@ export default function ProductDetail({
   product,
   error,
 }: {
-  product: Product;
-  error: { message: string };
+  product?: Product;
+  error?: { message: string };
 }) {
-  const [totalPrice, setTotalPrice] = useState<number>(product.price || 0);
+  if (error || !product) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <ErrorComponent message={error?.message || '상품 정보가 없습니다.'} />
+      </div>
+    );
+  }
+
+  const [totalPrice, setTotalPrice] = useState<number>(product.price);
 
   const handlePriceChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const newTotalPrice = calculateTotalPrice(e, product.price);
+    const quantity = Number(e.target.value);
+    const newTotalPrice = calculateTotalPrice(quantity, product.price);
     setTotalPrice(newTotalPrice);
   };
-
-  if (error) {
-    return <ErrorComponent message={error.message} />;
-  }
 
   return (
     <div className="flex flex-col gap-12 p-10 md:flex-row md:items-center md:justify-center">
@@ -63,7 +77,7 @@ export default function ProductDetail({
           <input
             type="number"
             min="1"
-            max={product.amount || 1}
+            max={product.amount}
             defaultValue="1"
             className="w-full rounded border border-gray-300 px-3 py-2 text-sm focus:ring-2 focus:ring-lime-400 focus:outline-none"
             onChange={handlePriceChange}
