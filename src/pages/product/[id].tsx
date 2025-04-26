@@ -55,6 +55,9 @@ export default function ProductDetail({
       </div>
       <div className="flex-1 space-y-4">
         <h1 className="text-2xl font-bold text-gray-800">{product.name}</h1>
+        <h2 className="text-lg text-gray-600">
+          원산지: <span className="text-gray-900">{product.origin}</span>
+        </h2>
         <p className="text-gray-500">{product.description}</p>
         <p className="text-xl font-semibold text-gray-900">
           {formattedPrice(product.price)}원
