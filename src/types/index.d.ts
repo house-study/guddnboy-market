@@ -7,3 +7,8 @@ interface Product {
   price: number;
   amount: number;
 }
+
+interface CartItem extends Product {
+  quantity: number;
+  isChecked: boolean;
+}
