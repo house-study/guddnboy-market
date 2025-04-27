@@ -1,5 +1,5 @@
 import { GetServerSidePropsContext } from 'next';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 
 import { getProductDetail } from '@/api/products';
 import ErrorComponent from '@/components/ErrorComponent';
@@ -34,15 +34,24 @@ export default function ProductDetail({
   error: { message: string };
 }) {
   const [totalPrice, setTotalPrice] = useState<number>(product.price || 0);
+  const [quantity, setQuantity] = useState<number>(1);
 
-  const handlePriceChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const newTotalPrice = calculateTotalPrice(e, product.price);
+  const handleQuantityChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setQuantity(Number(e.target.value));
+  };
+
+  const handlePriceChange = () => {
+    const newTotalPrice = calculateTotalPrice(quantity, product.price);
     setTotalPrice(newTotalPrice);
   };
 
   if (error) {
     return <ErrorComponent message={error.message} />;
   }
+
+  useEffect(() => {
+    handlePriceChange();
+  }, [quantity]);
 
   return (
     <div className="flex flex-col gap-12 p-10 md:flex-row md:items-center md:justify-center">
@@ -67,9 +76,9 @@ export default function ProductDetail({
             type="number"
             min="1"
             max={product.amount || 1}
-            defaultValue="1"
+            value={quantity}
             className="w-full rounded border border-gray-300 px-3 py-2 text-sm focus:ring-2 focus:ring-lime-400 focus:outline-none"
-            onChange={handlePriceChange}
+            onChange={handleQuantityChange}
           />
           <div className="flex items-center justify-between text-lg font-bold text-gray-800">
             <span>총 상품 금액</span>
