@@ -3,6 +3,7 @@ import { ChangeEvent, useEffect, useState } from 'react';
 
 import { getProductDetail } from '@/api/products';
 import ErrorComponent from '@/components/ErrorComponent';
+import { addToCart } from '@/utils/cart';
 import { formattedPrice, calculateTotalPrice } from '@/utils/price';
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
@@ -89,7 +90,12 @@ export default function ProductDetail({
           <button className="flex-1 bg-black py-3 text-sm font-semibold text-white hover:cursor-pointer hover:bg-gray-800">
             BUY
           </button>
-          <button className="flex-1 border border-black py-3 text-sm font-semibold hover:cursor-pointer hover:bg-gray-200">
+          <button
+            className="flex-1 border border-black py-3 text-sm font-semibold hover:cursor-pointer hover:bg-gray-200"
+            onClick={() => {
+              addToCart(product, quantity);
+            }}
+          >
             ADD TO CART
           </button>
         </div>
