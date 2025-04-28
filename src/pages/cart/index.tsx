@@ -1,13 +1,10 @@
 import { Trash2, Square, SquareCheck } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
+import { getCartItems } from '@/utils/cart';
+
 export default function CartPage() {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
-
-  const getCartItems = (): CartItem[] => {
-    const cartData = localStorage.getItem('cart');
-    return cartData ? JSON.parse(cartData) : [];
-  };
 
   useEffect(() => {
     const items = getCartItems();

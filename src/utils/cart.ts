@@ -1,3 +1,8 @@
+export const getCartItems = (): CartItem[] => {
+  const cartData = localStorage.getItem('cart');
+  return cartData ? JSON.parse(cartData) : [];
+};
+
 export const addToCart = (product: Product, quantity: number) => {
   const cartData = localStorage.getItem('cart');
   const cartItems: CartItem[] = cartData ? JSON.parse(cartData) : [];
