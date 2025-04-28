@@ -1,7 +1,14 @@
 import { Trash2, Square, SquareCheck } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
-import { getCartItems } from '@/utils/cart';
+import {
+  getCartItems,
+  checkCartItem,
+  removeCartItem,
+  decreaseCartItemQuantity,
+  increaseCartItemQuantity,
+  removeCheckedItems,
+} from '@/utils/cart';
 
 export default function CartPage() {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
@@ -34,11 +41,23 @@ export default function CartPage() {
               >
                 <div className="flex justify-center">
                   {item.isChecked ? (
-                    <button className="cursor-pointer">
+                    <button
+                      className="cursor-pointer"
+                      onClick={() => {
+                        checkCartItem(item.id);
+                        setCartItems(getCartItems());
+                      }}
+                    >
                       <SquareCheck size={30} />
                     </button>
                   ) : (
-                    <button className="cursor-pointer">
+                    <button
+                      className="cursor-pointer"
+                      onClick={() => {
+                        checkCartItem(item.id);
+                        setCartItems(getCartItems());
+                      }}
+                    >
                       <Square size={30} />
                     </button>
                   )}
@@ -54,11 +73,23 @@ export default function CartPage() {
                   </div>
                 </div>
                 <div className="flex justify-center">
-                  <button className="cursor-pointer rounded border bg-gray-200 px-2 text-gray-500">
+                  <button
+                    className="cursor-pointer rounded border bg-gray-200 px-2 text-gray-500"
+                    onClick={() => {
+                      decreaseCartItemQuantity(item.id);
+                      setCartItems(getCartItems());
+                    }}
+                  >
                     -
                   </button>
                   <span className="mx-2">{item.quantity}</span>
-                  <button className="cursor-pointer rounded border bg-gray-200 px-2 text-gray-500">
+                  <button
+                    className="cursor-pointer rounded border bg-gray-200 px-2 text-gray-500"
+                    onClick={() => {
+                      increaseCartItemQuantity(item.id);
+                      setCartItems(getCartItems());
+                    }}
+                  >
                     +
                   </button>
                 </div>
@@ -66,7 +97,13 @@ export default function CartPage() {
                   {(item.price * item.quantity).toLocaleString()}원
                 </div>
                 <div className="flex justify-center">
-                  <button className="flex cursor-pointer justify-center text-gray-400 hover:text-red-500">
+                  <button
+                    className="flex cursor-pointer justify-center text-gray-400 hover:text-red-500"
+                    onClick={() => {
+                      removeCartItem(item.id);
+                      setCartItems(getCartItems());
+                    }}
+                  >
                     <Trash2 size={30} />
                   </button>
                 </div>
@@ -76,7 +113,13 @@ export default function CartPage() {
         </div>
       </div>
       <div className="mt-6 flex items-center justify-between">
-        <button className="cursor-pointer border px-4 py-2 text-gray-500 hover:text-black">
+        <button
+          className="cursor-pointer border px-4 py-2 text-gray-500 hover:text-black"
+          onClick={() => {
+            removeCheckedItems();
+            setCartItems(getCartItems());
+          }}
+        >
           선택상품 삭제
         </button>
         <button
