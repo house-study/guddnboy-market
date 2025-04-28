@@ -17,7 +17,3 @@ export const addToCart = (product: Product, quantity: number) => {
   localStorage.setItem('cart', JSON.stringify(cartItems));
   alert('상품이 장바구니에 추가되었습니다.');
 };
-
-export const saveCartToLocalStorage = (cartItems: CartItem[]) => {
-  localStorage.setItem('cart', JSON.stringify(cartItems));
-};
