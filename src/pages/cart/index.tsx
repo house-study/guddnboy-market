@@ -64,7 +64,6 @@ export default function CartPage() {
                 className="grid grid-cols-5 items-center border-t py-4 text-center"
               >
                 <div className="flex justify-center">
-                  {/* checkList 상태에 따라 조건부 렌더링 */}
                   {checkList[index] ? (
                     <button
                       className="cursor-pointer"
