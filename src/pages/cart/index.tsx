@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { getProductDetail } from '@/api/products';
 import { CheckBox } from '@/components/cart/CheckBox';
 import { DeleteButton } from '@/components/cart/DeleteButton';
+import { EmptyCart } from '@/components/cart/EmptyCart';
 import {
   clearCart,
   getCartItems,
@@ -88,9 +89,7 @@ export default function CartPage() {
         </div>
         <div className="flex min-h-24 flex-col justify-center">
           {productsInCart.length === 0 ? (
-            <div className="grid grid-cols-5 items-center border-t py-8 text-center text-gray-400">
-              <div className="col-span-5">장바구니에 담긴 상품이 없습니다.</div>
-            </div>
+            <EmptyCart />
           ) : (
             productsInCart.map((item, index) => (
               <div
