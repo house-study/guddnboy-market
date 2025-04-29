@@ -11,8 +11,6 @@ import {
 
 //[TODO] 반응형 스타일 고려
 export default function CartPage() {
-  // [TODO] cartList 데이터 사용
-  const [cartList, setCartList] = useState<CartList[]>([]);
   const [productsInCart, setProductsInCart] = useState<
     (Product & { quantity: number })[]
   >([]);
@@ -54,7 +52,6 @@ export default function CartPage() {
   useEffect(() => {
     const fetchCartData = async () => {
       const items = getCartItems();
-      setCartList(items);
 
       const productsData = await Promise.all(
         items.map(async item => {
