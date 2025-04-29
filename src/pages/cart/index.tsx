@@ -2,7 +2,12 @@ import { Trash2, Square, SquareCheck } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
 import { getProductDetail } from '@/api/products';
-import { clearCart, getCartItems, removeCartItem } from '@/utils/cart';
+import {
+  clearCart,
+  getCartItems,
+  removeCartItem,
+  updateCartItem,
+} from '@/utils/cart';
 
 //[TODO] 반응형 스타일 고려
 export default function CartPage() {
@@ -19,7 +24,13 @@ export default function CartPage() {
     setCheckList(updatedCheckList);
   };
 
-  // [TODO] 장바구니 상품 수량 변경 함수
+  const handleQuantityChange = (index: number, newQuantity: number) => {
+    const updatedProducts = [...productsInCart];
+    updatedProducts[index].quantity = newQuantity;
+    setProductsInCart(updatedProducts);
+    updateCartItem(updatedProducts[index].id, newQuantity);
+  };
+
   const handleSelectDelete = () => {
     const updatedProducts = productsInCart.filter(
       (_, index) => !checkList[index],
@@ -117,14 +128,20 @@ export default function CartPage() {
                 <div className="flex justify-center">
                   <button
                     className="cursor-pointer rounded border bg-gray-200 px-2 text-gray-500"
-                    onClick={() => {}}
+                    onClick={() => {
+                      handleQuantityChange(index, item.quantity - 1);
+                    }}
+                    disabled={item.quantity <= 1}
                   >
                     -
                   </button>
                   <span className="mx-2">{item.quantity}</span>
                   <button
                     className="cursor-pointer rounded border bg-gray-200 px-2 text-gray-500"
-                    onClick={() => {}}
+                    onClick={() => {
+                      handleQuantityChange(index, item.quantity + 1);
+                    }}
+                    disabled={item.quantity >= item.amount}
                   >
                     +
                   </button>

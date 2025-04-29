@@ -23,6 +23,17 @@ export const addToCart = (product: Product, quantity: number) => {
   localStorage.setItem('cart', JSON.stringify(cartItems));
 };
 
+export const updateCartItem = (id: string, quantity: number) => {
+  const cartItems: CartList[] = getCartItems();
+  const updatedItems = cartItems.map(item => {
+    if (item.productId === id) {
+      return { ...item, quantity: quantity };
+    }
+    return item;
+  });
+  localStorage.setItem('cart', JSON.stringify(updatedItems));
+};
+
 export const removeCartItem = (id: string) => {
   const cartItems: CartList[] = getCartItems();
   const updatedCartItems = cartItems.filter(item => item.productId !== id);
