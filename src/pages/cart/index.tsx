@@ -4,7 +4,9 @@ import { useState, useEffect } from 'react';
 import { getProductDetail } from '@/api/products';
 import { getCartItems } from '@/utils/cart';
 
+//[TODO] 반응형 스타일 고려
 export default function CartPage() {
+  // [TODO] cartList 데이터 사용
   const [cartList, setCartList] = useState<CartList[]>([]);
   const [productsInCart, setProductsInCart] = useState<
     (Product & { quantity: number })[]
@@ -16,6 +18,10 @@ export default function CartPage() {
     updatedCheckList[index] = !updatedCheckList[index];
     setCheckList(updatedCheckList);
   };
+
+  // [TODO] 장바구니 상품 수량 변경 함수
+  // [TODO] 선택 삭제 함수
+  // [TODO] 전체 삭제 함수
 
   useEffect(() => {
     const fetchCartData = async () => {
@@ -42,6 +48,7 @@ export default function CartPage() {
     fetchCartData();
   }, []);
 
+  // [TODO] 컴포넌트 분리
   return (
     <div className="p-6">
       <h1 className="mb-6 text-2xl font-bold">장바구니</h1>
