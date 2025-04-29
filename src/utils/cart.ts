@@ -26,9 +26,8 @@ export const addToCart = (product: Product, quantity: number) => {
 
 export const removeCartItem = (id: string) => {
   const cartItems: CartList[] = getCartItems();
-  const updatedCartItems = cartItems.filter(item => item.id !== id);
+  const updatedCartItems = cartItems.filter(item => item.productId !== id);
   localStorage.setItem('cart', JSON.stringify(updatedCartItems));
-  return updatedCartItems;
 };
 
 export const clearCart = () => {
