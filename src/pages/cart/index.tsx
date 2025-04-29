@@ -32,10 +32,12 @@ export default function CartPage() {
     alert('상품이 장바구니에서 삭제되었습니다.');
   };
   const handleAllDelete = () => {
-    setProductsInCart([]);
-    setCheckList([]);
-    clearCart();
-    alert('장바구니가 비워졌습니다.');
+    if (confirm('정말로 장바구니를 모두 삭제하시겠습니까?')) {
+      setProductsInCart([]);
+      setCheckList([]);
+      clearCart();
+      alert('장바구니가 비워졌습니다.');
+    }
   };
 
   useEffect(() => {
