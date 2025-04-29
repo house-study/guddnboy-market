@@ -149,10 +149,10 @@ export default function CartPage() {
         </div>
       </div>
       <div className="mt-6 flex items-center justify-between">
-        <DeleteButton
-          handleSelectDelete={handleSelectDelete}
-          handleAllDelete={handleAllDelete}
-        />
+        <div className="flex items-center gap-2">
+          <DeleteButton title="선택 삭제" handleDelete={handleSelectDelete} />
+          <DeleteButton title="전체 삭제" handleDelete={handleAllDelete} />
+        </div>
         <button
           className="cursor-pointer rounded bg-gray-300 px-8 py-3 text-white hover:bg-gray-400"
           disabled={productsInCart.length === 0}
