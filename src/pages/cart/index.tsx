@@ -1,7 +1,8 @@
-import { Trash2, Square, SquareCheck } from 'lucide-react';
+import { Trash2 } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
 import { getProductDetail } from '@/api/products';
+import { CheckBox } from '@/components/cart/CheckBox';
 import { DeleteButton } from '@/components/cart/DeleteButton';
 import {
   clearCart,
@@ -96,23 +97,11 @@ export default function CartPage() {
                 key={item.id}
                 className="grid grid-cols-5 items-center border-t py-4 text-center"
               >
-                <div className="flex justify-center">
-                  {checkList[index] ? (
-                    <button
-                      className="cursor-pointer"
-                      onClick={() => handleCheck(index)}
-                    >
-                      <SquareCheck size={30} />
-                    </button>
-                  ) : (
-                    <button
-                      className="cursor-pointer"
-                      onClick={() => handleCheck(index)}
-                    >
-                      <Square size={30} />
-                    </button>
-                  )}
-                </div>
+                <CheckBox
+                  index={index}
+                  checkList={checkList}
+                  handleCheck={handleCheck}
+                />
                 <div className="flex items-center gap-4">
                   <img
                     src={item.imageURL}
