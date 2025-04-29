@@ -5,6 +5,7 @@ import { getProductDetail } from '@/api/products';
 import { CheckBox } from '@/components/cart/CheckBox';
 import { DeleteButton } from '@/components/cart/DeleteButton';
 import { EmptyCart } from '@/components/cart/EmptyCart';
+import { PaymentButton } from '@/components/cart/PaymentButton';
 import {
   clearCart,
   getCartItems,
@@ -153,12 +154,7 @@ export default function CartPage() {
           <DeleteButton title="선택 삭제" handleDelete={handleSelectDelete} />
           <DeleteButton title="전체 삭제" handleDelete={handleAllDelete} />
         </div>
-        <button
-          className="cursor-pointer rounded bg-gray-300 px-8 py-3 text-white hover:bg-gray-400"
-          disabled={productsInCart.length === 0}
-        >
-          결제하기
-        </button>
+        <PaymentButton />
       </div>
     </div>
   );
