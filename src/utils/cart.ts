@@ -31,3 +31,8 @@ export const removeCartItem = (id: string) => {
   alert('상품이 장바구니에서 삭제되었습니다.');
   return updatedCartItems;
 };
+
+export const clearCart = () => {
+  localStorage.removeItem('cart');
+  alert('장바구니가 비워졌습니다.');
+};

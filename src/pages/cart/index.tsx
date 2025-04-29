@@ -2,7 +2,7 @@ import { Trash2, Square, SquareCheck } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
 import { getProductDetail } from '@/api/products';
-import { getCartItems } from '@/utils/cart';
+import { clearCart, getCartItems } from '@/utils/cart';
 
 //[TODO] 반응형 스타일 고려
 export default function CartPage() {
@@ -22,6 +22,11 @@ export default function CartPage() {
   // [TODO] 장바구니 상품 수량 변경 함수
   // [TODO] 선택 삭제 함수
   // [TODO] 전체 삭제 함수
+  const handleAllDelete = () => {
+    setProductsInCart([]);
+    setCheckList([]);
+    clearCart();
+  };
 
   useEffect(() => {
     const fetchCartData = async () => {
@@ -139,7 +144,9 @@ export default function CartPage() {
             </button>
             <button
               className="cursor-pointer border px-4 py-2 text-gray-500 hover:text-black"
-              onClick={() => {}}
+              onClick={() => {
+                handleAllDelete();
+              }}
             >
               전체 삭제
             </button>
