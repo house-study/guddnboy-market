@@ -8,7 +8,8 @@ interface Product {
   amount: number;
 }
 
-interface CartItem extends Product {
+interface CartList {
+  id: string;
+  productId: string;
   quantity: number;
-  isChecked: boolean;
 }
