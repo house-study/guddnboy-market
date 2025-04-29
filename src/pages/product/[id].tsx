@@ -37,6 +37,11 @@ export default function ProductDetail({
   const [totalPrice, setTotalPrice] = useState<number>(product.price || 0);
   const [quantity, setQuantity] = useState<number>(1);
 
+  const handleAddToCart = () => {
+    addToCart(product, quantity);
+    alert('상품이 장바구니에 추가되었습니다.');
+  };
+
   const handleQuantityChange = (e: ChangeEvent<HTMLInputElement>) => {
     setQuantity(Number(e.target.value));
   };
@@ -92,9 +97,7 @@ export default function ProductDetail({
           </button>
           <button
             className="flex-1 border border-black py-3 text-sm font-semibold hover:cursor-pointer hover:bg-gray-200"
-            onClick={() => {
-              addToCart(product, quantity);
-            }}
+            onClick={handleAddToCart}
           >
             ADD TO CART
           </button>

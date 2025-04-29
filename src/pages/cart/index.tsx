@@ -26,6 +26,7 @@ export default function CartPage() {
     setProductsInCart([]);
     setCheckList([]);
     clearCart();
+    alert('장바구니가 비워졌습니다.');
   };
 
   useEffect(() => {
@@ -144,9 +145,7 @@ export default function CartPage() {
             </button>
             <button
               className="cursor-pointer border px-4 py-2 text-gray-500 hover:text-black"
-              onClick={() => {
-                handleAllDelete();
-              }}
+              onClick={handleAllDelete}
             >
               전체 삭제
             </button>
