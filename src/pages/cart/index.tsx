@@ -1,8 +1,7 @@
-import { Trash2 } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
 import { getProductDetail } from '@/api/products';
-import { CheckBox } from '@/components/cart/CheckBox';
+import { CartItem } from '@/components/cart/CartItem';
 import { DeleteButton } from '@/components/cart/DeleteButton';
 import { EmptyCart } from '@/components/cart/EmptyCart';
 import { PaymentButton } from '@/components/cart/PaymentButton';
@@ -92,69 +91,33 @@ export default function CartPage() {
           {productsInCart.length === 0 ? (
             <EmptyCart />
           ) : (
-            productsInCart.map((item, index) => (
-              <div
-                key={item.id}
-                className="grid grid-cols-5 items-center border-t py-4 text-center"
-              >
-                <CheckBox
+            <>
+              {productsInCart.map((item, index) => (
+                <CartItem
+                  key={item.id}
+                  item={item}
                   index={index}
                   checkList={checkList}
                   handleCheck={handleCheck}
+                  handleQuantityChange={handleQuantityChange}
                 />
-                <div className="flex items-center gap-4">
-                  <img
-                    src={item.imageURL}
-                    alt={item.name}
-                    className="h-16 w-16 object-cover"
+              ))}
+              <div className="flex items-center justify-between border-t pt-4">
+                <div className="flex items-center gap-2">
+                  <DeleteButton
+                    title="선택 삭제"
+                    handleDelete={handleSelectDelete}
                   />
-                  <div className="text-left">
-                    <div className="font-semibold">{item.name}</div>
-                  </div>
+                  <DeleteButton
+                    title="전체 삭제"
+                    handleDelete={handleAllDelete}
+                  />
                 </div>
-                <div className="flex justify-center">
-                  <button
-                    className="cursor-pointer rounded border bg-gray-200 px-2 text-gray-500"
-                    onClick={() => {
-                      handleQuantityChange(index, item.quantity - 1);
-                    }}
-                    disabled={item.quantity <= 1}
-                  >
-                    -
-                  </button>
-                  <span className="mx-2">{item.quantity}</span>
-                  <button
-                    className="cursor-pointer rounded border bg-gray-200 px-2 text-gray-500"
-                    onClick={() => {
-                      handleQuantityChange(index, item.quantity + 1);
-                    }}
-                    disabled={item.quantity >= item.amount}
-                  >
-                    +
-                  </button>
-                </div>
-                <div className="flex justify-center">
-                  {(item.price * 1).toLocaleString()}원
-                </div>
-                <div className="flex justify-center">
-                  <button
-                    className="flex cursor-pointer justify-center text-gray-400 hover:text-red-500"
-                    onClick={() => {}}
-                  >
-                    <Trash2 size={30} />
-                  </button>
-                </div>
+                <PaymentButton />
               </div>
-            ))
+            </>
           )}
         </div>
-      </div>
-      <div className="mt-6 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <DeleteButton title="선택 삭제" handleDelete={handleSelectDelete} />
-          <DeleteButton title="전체 삭제" handleDelete={handleAllDelete} />
-        </div>
-        <PaymentButton />
       </div>
     </div>
   );
