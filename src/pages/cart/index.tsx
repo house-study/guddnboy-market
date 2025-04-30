@@ -10,7 +10,7 @@ import { CartLoading } from '@/components/loading/CartLoading';
 import {
   clearCart,
   getCartItems,
-  removeCartItem,
+  deleteCartItem,
   updateCartItem,
 } from '@/utils/cart';
 
@@ -39,7 +39,7 @@ export default function CartPage() {
       (_, index) => !checkList[index],
     );
 
-    updatedProducts.forEach(item => removeCartItem(item.id));
+    updatedProducts.forEach(item => deleteCartItem(item.id));
 
     setProductsInCart(updatedProducts);
     setCheckList(new Array(updatedProducts.length).fill(false));
