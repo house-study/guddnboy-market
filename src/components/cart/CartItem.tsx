@@ -40,8 +40,7 @@ export const CartItem = ({
         </div>
       </div>
       <div className="text-center">
-        <span className="block sm:hidden">{item.quantity}</span>
-        <div className="hidden items-center justify-center sm:flex">
+        <div className="items-center justify-center sm:flex">
           <button
             className="cursor-pointer rounded border bg-gray-200 px-2 text-gray-500"
             onClick={() => handleQuantityChange(index, item.quantity - 1)}
@@ -59,7 +58,8 @@ export const CartItem = ({
           </button>
         </div>
       </div>
-      <div className="text-center">
+
+      <div className="hidden text-center sm:block">
         {(item.price * item.quantity).toLocaleString()}원
       </div>
       <div className="hidden cursor-pointer justify-center md:flex">

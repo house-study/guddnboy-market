@@ -4,7 +4,7 @@ export const Header = () => {
       <div>선택</div>
       <div>상품 정보</div>
       <div>수량</div>
-      <div>주문금액</div>
+      <div className="hidden sm:block">주문금액</div>
       <div className="hidden md:block">삭제</div>
     </div>
   );
