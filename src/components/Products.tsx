@@ -1,3 +1,4 @@
+import { ShoppingCart } from 'lucide-react';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
@@ -28,6 +29,13 @@ const Products = () => {
 
   return (
     <div className="h-screen w-full max-w-7xl overflow-y-scroll p-4">
+      {/* [TODO] 네비게이션 바 스타일 수정 */}
+      <nav className="mb-4 flex justify-end gap-4">
+        <Link href="/cart" className="flex items-center gap-2 rounded-md px-2">
+          <ShoppingCart className="h-6 w-6 text-gray-600" />
+          <span className="font-medium text-gray-700">장바구니</span>
+        </Link>
+      </nav>
       <div className="grid grid-cols-4 flex-col items-center justify-center gap-8 max-xl:grid-cols-3 max-lg:grid-cols-2 max-sm:grid-cols-1">
         {products?.map(product => (
           <Link href={`/product/${product.id}`} key={product.id}>
