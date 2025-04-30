@@ -76,16 +76,16 @@ export default function CartPage() {
     fetchCartData();
   }, []);
 
-  // [TODO] 컴포넌트 분리
   return (
     <div className="p-6">
       <h1 className="mb-6 text-2xl font-bold">장바구니</h1>
       <div className="border-t border-b py-4">
-        <div className="grid grid-cols-5 py-2 text-center text-sm font-semibold">
+        <div className="grid grid-cols-3 border-b py-2 text-center text-sm font-semibold sm:grid-cols-4 md:grid-cols-5">
           <div>선택</div>
           <div>상품 정보</div>
           <div>수량</div>
           <div>주문금액</div>
+          <div className="hidden md:block">삭제</div>
         </div>
         <div className="flex min-h-24 flex-col justify-center">
           {productsInCart.length === 0 ? (
@@ -100,6 +100,7 @@ export default function CartPage() {
                   checkList={checkList}
                   handleCheck={handleCheck}
                   handleQuantityChange={handleQuantityChange}
+                  handleDelete={handleSelectDelete}
                 />
               ))}
               <div className="flex items-center justify-between border-t pt-4">
