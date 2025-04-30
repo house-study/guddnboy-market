@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 
 import { getProductDetail } from '@/api/products';
-import { CartHeader } from '@/components/cart/CartHeader';
 import { CartItem } from '@/components/cart/CartItem';
 import { DeleteButton } from '@/components/cart/DeleteButton';
 import { EmptyCart } from '@/components/cart/EmptyCart';
+import { Header } from '@/components/cart/Header';
 import { PaymentButton } from '@/components/cart/PaymentButton';
 import { CartLoading } from '@/components/loading/CartLoading';
 import {
@@ -92,7 +92,7 @@ export default function CartPage() {
             <EmptyCart />
           ) : (
             <>
-              <CartHeader />
+              <Header />
               {productsInCart.map((item, index) => (
                 <CartItem
                   key={item.id}
