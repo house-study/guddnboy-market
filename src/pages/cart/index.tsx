@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 
 import { getProductDetail } from '@/api/products';
+import { CartHeader } from '@/components/cart/CartHeader';
 import { CartItem } from '@/components/cart/CartItem';
 import { DeleteButton } from '@/components/cart/DeleteButton';
 import { EmptyCart } from '@/components/cart/EmptyCart';
@@ -12,7 +13,6 @@ import {
   updateCartItem,
 } from '@/utils/cart';
 
-//[TODO] 반응형 스타일 고려
 export default function CartPage() {
   const [productsInCart, setProductsInCart] = useState<
     (Product & { quantity: number })[]
@@ -80,18 +80,12 @@ export default function CartPage() {
     <div className="p-6">
       <h1 className="mb-6 text-2xl font-bold">장바구니</h1>
       <div className="border-t border-b py-4">
-        <div className="grid grid-cols-3 border-b py-2 text-center text-sm font-semibold sm:grid-cols-4 md:grid-cols-5">
-          <div>선택</div>
-          <div>상품 정보</div>
-          <div>수량</div>
-          <div>주문금액</div>
-          <div className="hidden md:block">삭제</div>
-        </div>
         <div className="flex min-h-24 flex-col justify-center">
           {productsInCart.length === 0 ? (
             <EmptyCart />
           ) : (
             <>
+              <CartHeader />
               {productsInCart.map((item, index) => (
                 <CartItem
                   key={item.id}
