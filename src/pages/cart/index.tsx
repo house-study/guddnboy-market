@@ -6,6 +6,7 @@ import { CartItem } from '@/components/cart/CartItem';
 import { DeleteButton } from '@/components/cart/DeleteButton';
 import { EmptyCart } from '@/components/cart/EmptyCart';
 import { PaymentButton } from '@/components/cart/PaymentButton';
+import { CartLoading } from '@/components/loading/CartLoading';
 import {
   clearCart,
   getCartItems,
@@ -14,6 +15,7 @@ import {
 } from '@/utils/cart';
 
 export default function CartPage() {
+  const [isLoading, setIsLoading] = useState(true);
   const [productsInCart, setProductsInCart] = useState<
     (Product & { quantity: number })[]
   >([]);
@@ -71,10 +73,15 @@ export default function CartPage() {
 
       setCheckList(new Array(products.length).fill(false));
       setProductsInCart(products);
+      setIsLoading(false);
     };
 
     fetchCartData();
   }, []);
+
+  if (isLoading) {
+    return <CartLoading />;
+  }
 
   return (
     <div className="p-6">
