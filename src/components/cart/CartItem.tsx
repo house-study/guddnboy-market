@@ -58,7 +58,6 @@ export const CartItem = ({
           </button>
         </div>
       </div>
-
       <div className="hidden text-center sm:block">
         {(item.price * item.quantity).toLocaleString()}원
       </div>
