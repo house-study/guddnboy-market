@@ -1,0 +1,184 @@
+{
+  "products": [
+    {
+      "id": "1",
+      "imageURL": "https://placehold.co/150",
+      "name": "신선한 토마토",
+      "description": "달콤하고 신선한 토마토입니다.",
+      "price": 1800,
+      "amount": 10,
+      "origin": "국산"
+    },
+    {
+      "id": "2",
+      "imageURL": "https://placehold.co/150",
+      "name": "청상추",
+      "description": "무농약으로 재배한 아삭한 청상추.",
+      "price": 1200,
+      "amount": 25,
+      "origin": "국산"
+    },
+    {
+      "id": "3",
+      "imageURL": "https://placehold.co/150",
+      "name": "돼지고기 앞다리살",
+      "description": "구이용으로 적당한 앞다리살.",
+      "price": 7900,
+      "amount": 8,
+      "origin": "미국산"
+    },
+    {
+      "id": "4",
+      "imageURL": "https://placehold.co/150",
+      "name": "유기농 계란",
+      "description": "방사유정란 10개입",
+      "price": 5500,
+      "amount": 12,
+      "origin": "국산"
+    },
+    {
+      "id": "5",
+      "imageURL": "https://placehold.co/150",
+      "name": "국산 감자",
+      "description": "포슬포슬한 감자 1kg",
+      "price": 2000,
+      "amount": 15,
+      "origin": "국산"
+    },
+    {
+      "id": "6",
+      "imageURL": "https://placehold.co/150",
+      "name": "햇양파",
+      "description": "신선한 햇양파 2개입",
+      "price": 1500,
+      "amount": 20,
+      "origin": "중국산"
+    },
+    {
+      "id": "7",
+      "imageURL": "https://placehold.co/150",
+      "name": "국산 배추",
+      "description": "김장철 필수 배추 1포기",
+      "price": 2800,
+      "amount": 7,
+      "origin": "국산"
+    },
+    {
+      "id": "8",
+      "imageURL": "https://placehold.co/150",
+      "name": "깐마늘",
+      "description": "편리하게 사용할 수 있는 깐마늘 200g",
+      "price": 3200,
+      "amount": 18,
+      "origin": "중국산"
+    },
+    {
+      "id": "9",
+      "imageURL": "https://placehold.co/150",
+      "name": "돼지 삼겹살",
+      "description": "국산 냉장 삼겹살 500g",
+      "price": 10800,
+      "amount": 6,
+      "origin": "국산"
+    },
+    {
+      "id": "10",
+      "imageURL": "https://placehold.co/150",
+      "name": "소불고기용 고기",
+      "description": "얇게 썬 불고기용 소고기 300g",
+      "price": 9800,
+      "amount": 4,
+      "origin": "호주산"
+    },
+    {
+      "id": "11",
+      "imageURL": "https://placehold.co/150",
+      "name": "양배추",
+      "description": "위 건강에 좋은 양배추 1통",
+      "price": 1900,
+      "amount": 9,
+      "origin": "국산"
+    },
+    {
+      "id": "12",
+      "imageURL": "https://placehold.co/150",
+      "name": "오이",
+      "description": "국산 오이 3개입",
+      "price": 2700,
+      "amount": 11,
+      "origin": "국산"
+    },
+    {
+      "id": "13",
+      "imageURL": "https://placehold.co/150",
+      "name": "무농약 쌀",
+      "description": "2024년산 햅쌀 4kg",
+      "price": 13800,
+      "amount": 13,
+      "origin": "국산"
+    },
+    {
+      "id": "14",
+      "imageURL": "https://placehold.co/150",
+      "name": "국산 당근",
+      "description": "영양만점 당근 1kg",
+      "price": 2200,
+      "amount": 17,
+      "origin": "국산"
+    },
+    {
+      "id": "15",
+      "imageURL": "https://placehold.co/150",
+      "name": "파프리카 믹스",
+      "description": "빨강/노랑 파프리카 세트",
+      "price": 3500,
+      "amount": 10,
+      "origin": "네덜란드산"
+    },
+    {
+      "id": "16",
+      "imageURL": "https://placehold.co/150",
+      "name": "브로콜리",
+      "description": "신선한 브로콜리 한 송이",
+      "price": 2500,
+      "amount": 8,
+      "origin": "국산"
+    },
+    {
+      "id": "17",
+      "imageURL": "https://placehold.co/150",
+      "name": "표고버섯",
+      "description": "국산 표고버섯 200g",
+      "price": 4300,
+      "amount": 6,
+      "origin": "국산"
+    },
+    {
+      "id": "18",
+      "imageURL": "https://placehold.co/150",
+      "name": "국산 미나리",
+      "description": "향긋한 국산 미나리 150g",
+      "price": 2800,
+      "amount": 10,
+      "origin": "국산"
+    },
+    {
+      "id": "19",
+      "imageURL": "https://placehold.co/150",
+      "name": "깐 콩나물",
+      "description": "국산 콩나물 300g",
+      "price": 1000,
+      "amount": 30,
+      "origin": "국산"
+    },
+    {
+      "id": "20",
+      "imageURL": "https://placehold.co/150",
+      "name": "시금치",
+      "description": "철분이 풍부한 시금치 200g",
+      "price": 2600,
+      "amount": 12,
+      "origin": "국산"
+    }
+  ]
+}
