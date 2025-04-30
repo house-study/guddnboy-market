@@ -15,7 +15,7 @@ interface CartItemProps {
   checkList: boolean[];
   handleCheck: (index: number) => void;
   handleQuantityChange: (index: number, newQuantity: number) => void;
-  handleDelete: (id: string) => void;
+  handleDeleteItem: (productId: string) => void;
 }
 
 export const CartItem = ({
@@ -24,7 +24,7 @@ export const CartItem = ({
   checkList,
   handleCheck,
   handleQuantityChange,
-  handleDelete,
+  handleDeleteItem,
 }: CartItemProps) => {
   return (
     <div className="grid grid-cols-3 items-center border-t py-4 text-center text-sm sm:grid-cols-4 md:grid-cols-5">
@@ -65,7 +65,7 @@ export const CartItem = ({
       <div className="hidden cursor-pointer justify-center md:flex">
         <button
           className="text-gray-400 hover:text-red-500"
-          onClick={() => handleDelete(item.id)}
+          onClick={() => handleDeleteItem(item.id)}
         >
           <Trash2 size={24} />
         </button>

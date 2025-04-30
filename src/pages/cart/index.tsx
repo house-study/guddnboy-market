@@ -34,7 +34,7 @@ export default function CartPage() {
     updateCartItem(updatedProducts[index].id, newQuantity);
   };
 
-  const handleSelectDelete = () => {
+  const handleDeleteCheckedItems = () => {
     const updatedProducts = productsInCart.filter(
       (_, index) => !checkList[index],
     );
@@ -45,6 +45,16 @@ export default function CartPage() {
     setCheckList(new Array(updatedProducts.length).fill(false));
     alert('상품이 장바구니에서 삭제되었습니다.');
   };
+
+  const handleDeleteItem = (productId: string) => {
+    const updatedProducts = productsInCart.filter(
+      item => item.id !== productId,
+    );
+    setProductsInCart(updatedProducts);
+    deleteCartItem(productId);
+    alert('상품이 장바구니에서 삭제되었습니다.');
+  };
+
   const handleAllDelete = () => {
     if (confirm('정말로 장바구니를 모두 삭제하시겠습니까?')) {
       setProductsInCart([]);
@@ -77,7 +87,7 @@ export default function CartPage() {
     };
 
     fetchCartData();
-  }, []);
+  }, [productsInCart.length]);
 
   if (isLoading) {
     return <CartLoading />;
@@ -101,14 +111,14 @@ export default function CartPage() {
                   checkList={checkList}
                   handleCheck={handleCheck}
                   handleQuantityChange={handleQuantityChange}
-                  handleDelete={handleSelectDelete}
+                  handleDeleteItem={handleDeleteItem}
                 />
               ))}
               <div className="flex items-center justify-between border-t pt-4">
                 <div className="flex items-center gap-2">
                   <DeleteButton
                     title="선택 삭제"
-                    handleDelete={handleSelectDelete}
+                    handleDelete={handleDeleteCheckedItems}
                   />
                   <DeleteButton
                     title="전체 삭제"
