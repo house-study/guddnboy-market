@@ -13,6 +13,7 @@ import {
   deleteCartItem,
   updateCartItem,
 } from '@/utils/cart';
+import { formattedPrice, calculateTotalPrice } from '@/utils/price';
 
 export default function CartPage() {
   const [isLoading, setIsLoading] = useState(true);
@@ -20,6 +21,7 @@ export default function CartPage() {
     (Product & { quantity: number })[]
   >([]);
   const [checkList, setCheckList] = useState<boolean[]>([]);
+  const [totalPrice, setTotalPrice] = useState(0);
 
   const handleCheck = (index: number) => {
     const updatedCheckList = [...checkList];
@@ -89,6 +91,16 @@ export default function CartPage() {
     fetchCartData();
   }, [productsInCart.length]);
 
+  useEffect(() => {
+    const totalPrice = productsInCart.reduce((acc, item, index) => {
+      if (checkList[index]) {
+        return acc + calculateTotalPrice(item.quantity, item.price);
+      }
+      return acc;
+    }, 0);
+    setTotalPrice(totalPrice);
+  }, [checkList, productsInCart]);
+
   if (isLoading) {
     return <CartLoading />;
   }
@@ -114,7 +126,7 @@ export default function CartPage() {
                   handleDeleteItem={handleDeleteItem}
                 />
               ))}
-              <div className="flex items-center justify-between border-t pt-4">
+              <div className="grid gap-4 border-t pt-4 md:grid-cols-3 md:items-center">
                 <div className="flex items-center gap-2">
                   <DeleteButton
                     title="선택 삭제"
@@ -125,7 +137,15 @@ export default function CartPage() {
                     handleDelete={handleAllDelete}
                   />
                 </div>
-                <PaymentButton />
+                <div className="flex w-full items-center justify-end gap-4 text-right md:w-auto md:justify-end">
+                  <span className="font-semibold">합계:</span>
+                  <span className="inline-block min-w-24 pr-4 text-lg font-semibold">
+                    {formattedPrice(totalPrice)}
+                  </span>
+                </div>
+                <div className="mr-4 flex justify-end">
+                  <PaymentButton />
+                </div>
               </div>
             </>
           )}
