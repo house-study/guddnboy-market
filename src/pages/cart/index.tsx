@@ -133,7 +133,7 @@ export default function CartPage() {
                 <div className="flex w-full items-center justify-end gap-4 text-right md:w-auto md:justify-end">
                   <span className="font-semibold">합계:</span>
                   <span className="inline-block min-w-24 pr-4 text-lg font-semibold">
-                    {formattedPrice(totalPrice)}
+                    {formattedPrice(totalPrice)} 원
                   </span>
                 </div>
                 <div className="mr-4 flex justify-end">
