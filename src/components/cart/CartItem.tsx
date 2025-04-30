@@ -35,9 +35,7 @@ export const CartItem = ({
           alt={item.name}
           className="h-16 w-16 object-cover"
         />
-        <div className="text-left">
-          <div className="font-semibold">{item.name}</div>
-        </div>
+        <div className="font-semibold">{item.name}</div>
       </div>
       <div className="text-center">
         <span className="block sm:hidden">{item.quantity}</span>
