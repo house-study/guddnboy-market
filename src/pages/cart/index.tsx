@@ -1,18 +1,13 @@
 import { useState, useEffect } from 'react';
 
 import { getProductDetail } from '@/api/products';
+import { Button } from '@/components/cart/Button';
 import { CartItem } from '@/components/cart/CartItem';
-import { DeleteButton } from '@/components/cart/DeleteButton';
 import { EmptyCart } from '@/components/cart/EmptyCart';
 import { Header } from '@/components/cart/Header';
 import { PaymentButton } from '@/components/cart/PaymentButton';
 import { CartLoading } from '@/components/loading/CartLoading';
-import {
-  clearCart,
-  getCartItems,
-  deleteCartItem,
-  updateCartItem,
-} from '@/utils/cart';
+import { getCartItems, deleteCartItem, updateCartItem } from '@/utils/cart';
 import { formattedPrice, calculateTotalPrice } from '@/utils/price';
 
 export default function CartPage() {
@@ -41,6 +36,11 @@ export default function CartPage() {
       (_, index) => checkList[index],
     );
 
+    if (updatedProducts.length === 0) {
+      alert('삭제할 상품을 선택해주세요.');
+      return;
+    }
+
     updatedProducts.forEach(item => deleteCartItem(item.id));
 
     setProductsInCart(updatedProducts);
@@ -57,13 +57,9 @@ export default function CartPage() {
     alert('상품이 장바구니에서 삭제되었습니다.');
   };
 
-  const handleAllDelete = () => {
-    if (confirm('정말로 장바구니를 모두 삭제하시겠습니까?')) {
-      setProductsInCart([]);
-      setCheckList([]);
-      clearCart();
-      alert('장바구니가 비워졌습니다.');
-    }
+  const handleSelectAll = () => {
+    const allChecked = checkList.map(item => !item);
+    setCheckList(allChecked);
   };
 
   useEffect(() => {
@@ -128,13 +124,10 @@ export default function CartPage() {
               ))}
               <div className="grid gap-4 border-t pt-4 md:grid-cols-3 md:items-center">
                 <div className="flex items-center gap-2">
-                  <DeleteButton
+                  <Button title="전체 선택" handleFunction={handleSelectAll} />
+                  <Button
                     title="선택 삭제"
-                    handleDelete={handleDeleteCheckedItems}
-                  />
-                  <DeleteButton
-                    title="전체 삭제"
-                    handleDelete={handleAllDelete}
+                    handleFunction={handleDeleteCheckedItems}
                   />
                 </div>
                 <div className="flex w-full items-center justify-end gap-4 text-right md:w-auto md:justify-end">
