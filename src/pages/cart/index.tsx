@@ -38,7 +38,7 @@ export default function CartPage() {
 
   const handleDeleteCheckedItems = () => {
     const updatedProducts = productsInCart.filter(
-      (_, index) => !checkList[index],
+      (_, index) => checkList[index],
     );
 
     updatedProducts.forEach(item => deleteCartItem(item.id));
