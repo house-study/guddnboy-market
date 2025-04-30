@@ -27,7 +27,7 @@ export const CartItem = ({
   handleDeleteItem,
 }: CartItemProps) => {
   return (
-    <div className="grid grid-cols-3 items-center border-t py-4 text-center text-sm sm:grid-cols-4 md:grid-cols-5">
+    <div className="grid grid-cols-3 items-center border-t py-4 text-center text-sm sm:grid-cols-4 md:grid-cols-5 lg:min-w-5xl">
       <CheckBox index={index} checkList={checkList} handleCheck={handleCheck} />
       <div className="flex items-center justify-start gap-3">
         <img
@@ -35,7 +35,9 @@ export const CartItem = ({
           alt={item.name}
           className="h-16 w-16 object-cover"
         />
-        <div className="font-semibold">{item.name}</div>
+        <div className="max-w-28 text-left font-semibold break-words whitespace-pre-line sm:max-w-32 md:max-w-36">
+          {item.name}
+        </div>
       </div>
       <div className="text-center">
         <span className="block sm:hidden">{item.quantity}</span>
