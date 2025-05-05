@@ -7,7 +7,7 @@ export const EmptyCart = () => {
   };
 
   return (
-    <div className="mx-auto max-w-screen-lg items-center py-8 text-center text-gray-400">
+    <div className="flex h-[calc(100vh-12rem)] flex-col items-center justify-center text-center text-gray-400">
       <h2 className="mb-4 text-xl font-semibold">장바구니가 비어있습니다</h2>
       <p className="mb-8">원하는 상품을 장바구니에 담아보세요.</p>
       <button
