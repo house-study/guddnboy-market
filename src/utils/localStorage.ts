@@ -5,7 +5,7 @@ export const getLocalStorage = () => {
   return cart ? JSON.parse(cart) : [];
 };
 
-export const setLocalStorage = (cart: CartItem[]) => {
+export const setLocalStorage = (cart: CartProduct[]) => {
   localStorage.setItem(CART_KEY, JSON.stringify(cart));
 };
 

@@ -4,13 +4,15 @@ import {
   setLocalStorage,
 } from './localStorage';
 
-export const getCart = (): CartItem[] => {
+export const getCart = (): CartProduct[] => {
   return getLocalStorage();
 };
 
 export const addToCart = (product: Product, quantity: number) => {
-  const cart: CartItem[] = getCart();
-  const existingProduct = cart.find((item: CartItem) => item.id === product.id);
+  const cart: CartProduct[] = getCart();
+  const existingProduct = cart.find(
+    (item: CartProduct) => item.id === product.id,
+  );
 
   if (existingProduct) {
     existingProduct.quantity = quantity;
@@ -23,13 +25,13 @@ export const addToCart = (product: Product, quantity: number) => {
 
 export const removeFromCart = (productId: string) => {
   const cart = getCart();
-  const updatedCart = cart.filter((item: CartItem) => item.id !== productId);
+  const updatedCart = cart.filter((item: CartProduct) => item.id !== productId);
   setLocalStorage(updatedCart);
 };
 
 export const updateCartData = (productId: string, quantity: number) => {
   const cart = getCart();
-  const updatedCart = cart.map((item: CartItem) => {
+  const updatedCart = cart.map((item: CartProduct) => {
     if (item.id === productId) {
       item.quantity = quantity;
     }

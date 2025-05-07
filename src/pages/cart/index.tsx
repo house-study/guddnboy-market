@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 
-import CartList from '@/components/cart/CartList';
+import CartList from '@/components/cart/CartProductList';
 import { EmptyCart } from '@/components/cart/EmptyCart';
 import { getCart } from '@/utils/cart';
 
 export default function CartPage() {
-  const [cart, setCart] = useState<CartItem[]>([]);
+  const [cart, setCart] = useState<CartProduct[]>([]);
 
   useEffect(() => {
     const data = getCart();

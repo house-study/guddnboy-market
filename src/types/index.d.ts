@@ -8,7 +8,7 @@ interface Product {
   amount: number;
 }
 
-interface CartItem {
+interface CartProduct {
   id: string;
   imageURL: string;
   name: string;
