@@ -9,11 +9,12 @@ interface CartProductProps {
 
 export default function CartProduct({ product }: CartProductProps) {
   const { id, price, quantity, imageURL, name, amount } = product;
-  const totalPrice = formattedPrice(price * quantity);
+  const [productTotalPrice, setProductTotalPrice] = useState(price * quantity);
   const [productQuantity, setProductQuantity] = useState(quantity);
 
   const updateQuantity = (newQuantity: number) => {
     setProductQuantity(newQuantity);
+    setProductTotalPrice(price * newQuantity);
     updateProductQuantity(id, newQuantity);
   };
 
@@ -34,7 +35,11 @@ export default function CartProduct({ product }: CartProductProps) {
   };
 
   useEffect(() => {
-    setProductQuantity(quantity);
+    function updateProductData() {
+      setProductQuantity(quantity);
+      setProductTotalPrice(price * quantity);
+    }
+    updateProductData();
   }, [quantity]);
 
   return (
@@ -73,7 +78,7 @@ export default function CartProduct({ product }: CartProductProps) {
         </div>
       </div>
       <div className="text-center font-semibold text-gray-900">
-        {totalPrice}원
+        {formattedPrice(productTotalPrice)}원
       </div>
       <div className="flex items-center justify-center">
         <button className="flex cursor-pointer items-center justify-center rounded-md border border-gray-300 px-3 py-1.5 text-sm text-gray-700 transition-colors hover:bg-gray-100">
