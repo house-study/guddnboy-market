@@ -29,7 +29,7 @@ export const removeFromCart = (productId: string) => {
   setLocalStorage(updatedCart);
 };
 
-export const updateCartData = (productId: string, quantity: number) => {
+export const updateProductQuantity = (productId: string, quantity: number) => {
   const cart = getCart();
   const updatedCart = cart.map((item: CartProduct) => {
     if (item.id === productId) {
