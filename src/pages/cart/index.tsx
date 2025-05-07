@@ -8,11 +8,8 @@ export default function CartPage() {
   const [cart, setCart] = useState<CartProduct[]>([]);
 
   useEffect(() => {
-    function settingCartProductList() {
-      const data = getCart();
-      setCart(data);
-    }
-    settingCartProductList();
+    const data = getCart();
+    setCart(data);
   }, []);
 
   return (
