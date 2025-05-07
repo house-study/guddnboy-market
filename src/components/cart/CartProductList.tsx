@@ -13,7 +13,6 @@ export default function CartProductList({
     (prev, product) => prev + product.price * product.quantity,
     0,
   );
-
   const formattedTotalPrice = formattedPrice(totalPrice);
   return (
     <>
