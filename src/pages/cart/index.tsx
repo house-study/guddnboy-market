@@ -1,5 +1,20 @@
+import { useEffect, useState } from 'react';
+
+import CartList from '@/components/cart/CartList';
 import { EmptyCart } from '@/components/cart/EmptyCart';
+import { getCart } from '@/utils/cart';
 
 export default function CartPage() {
-  return <EmptyCart />;
+  const [cart, setCart] = useState<CartItem[]>([]);
+
+  useEffect(() => {
+    const data = getCart();
+    setCart(data);
+  }, []);
+
+  return (
+    <div className="flex h-[calc(100vh-12rem)] flex-col items-center justify-center">
+      {cart.length === 0 ? <EmptyCart /> : <CartList />}
+    </div>
+  );
 }
