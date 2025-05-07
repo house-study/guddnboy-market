@@ -1,3 +1,6 @@
+import { useEffect, useState } from 'react';
+
+import { updateProductQuantity } from '@/utils/cart';
 import { formattedPrice } from '@/utils/price';
 
 interface CartProductProps {
@@ -5,8 +8,34 @@ interface CartProductProps {
 }
 
 export default function CartProduct({ product }: CartProductProps) {
-  const { price, quantity, imageURL, name } = product;
+  const { id, price, quantity, imageURL, name, amount } = product;
   const totalPrice = formattedPrice(price * quantity);
+  const [productQuantity, setProductQuantity] = useState(quantity);
+
+  const updateQuantity = (newQuantity: number) => {
+    setProductQuantity(newQuantity);
+    updateProductQuantity(id, newQuantity);
+  };
+
+  const addQuantity = () => {
+    const newQuantity = productQuantity + 1;
+    if (newQuantity > amount) {
+      return;
+    }
+    updateQuantity(newQuantity);
+  };
+
+  const subtractQuantity = () => {
+    const newQuantity = productQuantity - 1;
+    if (newQuantity < 1) {
+      return;
+    }
+    updateQuantity(newQuantity);
+  };
+
+  useEffect(() => {
+    setProductQuantity(quantity);
+  }, [quantity]);
 
   return (
     <div className="grid grid-cols-5 items-center gap-4 border-b border-gray-200 py-6">
@@ -28,11 +57,17 @@ export default function CartProduct({ product }: CartProductProps) {
       </div>
       <div className="flex items-center justify-center">
         <div className="flex items-center rounded-md border border-gray-300">
-          <button className="flex h-8 w-8 cursor-pointer items-center justify-center text-gray-600 hover:bg-gray-100">
+          <button
+            className="flex h-8 w-8 cursor-pointer items-center justify-center text-gray-600 hover:bg-gray-100"
+            onClick={subtractQuantity}
+          >
             –
           </button>
-          <span className="mx-2 w-8 text-center">{quantity}</span>
-          <button className="flex h-8 w-8 cursor-pointer items-center justify-center text-gray-600 hover:bg-gray-100">
+          <span className="mx-2 w-8 text-center">{productQuantity}</span>
+          <button
+            className="flex h-8 w-8 cursor-pointer items-center justify-center text-gray-600 hover:bg-gray-100"
+            onClick={addQuantity}
+          >
             +
           </button>
         </div>
