@@ -1,3 +1,7 @@
+import {
+  updateAllProductIsNotSelected,
+  updateAllProductIsSelected,
+} from '@/utils/cart';
 import { formattedPrice } from '@/utils/price';
 
 import CartProduct from './CartProduct';
@@ -14,6 +18,16 @@ export default function CartProductList({
     0,
   );
   const formattedTotalPrice = formattedPrice(totalPrice);
+
+  const selectAllProducts = () => {
+    const isAllSelected = cartProductList.every(product => product.isSelected);
+    if (isAllSelected) {
+      updateAllProductIsNotSelected();
+    } else {
+      updateAllProductIsSelected();
+    }
+  };
+
   return (
     <>
       <div className="grid w-full grid-cols-5 border-b py-2 text-center text-sm font-semibold">
@@ -33,12 +47,14 @@ export default function CartProductList({
           <button
             title="전체 선택"
             className="flex cursor-pointer items-center justify-center rounded-md border border-gray-300 px-3 py-1.5 text-sm text-gray-700 transition-colors hover:bg-gray-100"
+            onClick={selectAllProducts}
           >
             전체 선택
           </button>
           <button
             title="선택 삭제"
             className="flex cursor-pointer items-center justify-center rounded-md border border-gray-300 px-3 py-1.5 text-sm text-gray-700 transition-colors hover:bg-gray-100"
+            onClick={() => {}}
           >
             선택 삭제
           </button>

@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react';
 
-import { updateProductQuantity } from '@/utils/cart';
+import {
+  updateProductIsNotSelected,
+  updateProductIsSelected,
+  updateProductQuantity,
+} from '@/utils/cart';
 import { formattedPrice } from '@/utils/price';
 
 interface CartProductProps {
@@ -8,14 +12,24 @@ interface CartProductProps {
 }
 
 export default function CartProduct({ product }: CartProductProps) {
-  const { id, price, quantity, imageURL, name, amount } = product;
+  const { id, price, quantity, imageURL, name, amount, isSelected } = product;
   const [productTotalPrice, setProductTotalPrice] = useState(price * quantity);
   const [productQuantity, setProductQuantity] = useState(quantity);
+  const [isChecked, setIsChecked] = useState(isSelected);
 
   const updateQuantity = (newQuantity: number) => {
     setProductQuantity(newQuantity);
     setProductTotalPrice(price * newQuantity);
     updateProductQuantity(id, newQuantity);
+  };
+
+  const updateIsSelected = () => {
+    setIsChecked(!isChecked);
+    if (isChecked) {
+      updateProductIsNotSelected(id);
+    } else {
+      updateProductIsSelected(id);
+    }
   };
 
   const addQuantity = () => {
@@ -38,9 +52,10 @@ export default function CartProduct({ product }: CartProductProps) {
     function updateProductData() {
       setProductQuantity(quantity);
       setProductTotalPrice(price * quantity);
+      setIsChecked(isSelected);
     }
     updateProductData();
-  }, [quantity]);
+  }, [quantity, isSelected]);
 
   return (
     <div className="grid grid-cols-5 items-center gap-4 border-b border-gray-200 py-6">
@@ -48,6 +63,8 @@ export default function CartProduct({ product }: CartProductProps) {
         <input
           type="checkbox"
           className="h-6 w-6 cursor-pointer rounded-sm border-2 border-gray-400"
+          checked={isChecked}
+          onChange={updateIsSelected}
         />
       </div>
       <div className="flex items-center">
