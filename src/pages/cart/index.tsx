@@ -17,11 +17,7 @@ export default function CartPage() {
 
   return (
     <div className="flex h-[calc(100vh-12rem)] flex-col items-center justify-center">
-      {cart.length === 0 ? (
-        <EmptyCart />
-      ) : (
-        <CartProductList cartProductList={cart} />
-      )}
+      {cart.length === 0 ? <EmptyCart /> : <CartProductList />}
     </div>
   );
 }
