@@ -1,4 +1,7 @@
+import { useEffect, useMemo, useState } from 'react';
+
 import {
+  getCart,
   updateAllProductIsNotSelected,
   updateAllProductIsSelected,
 } from '@/utils/cart';
@@ -6,27 +9,34 @@ import { formattedPrice } from '@/utils/price';
 
 import CartProduct from './CartProduct';
 
-interface CartProductListProps {
-  cartProductList: CartProduct[];
-}
+export default function CartProductList() {
+  const [cart, setCart] = useState<CartProduct[]>(getCart());
 
-export default function CartProductList({
-  cartProductList,
-}: CartProductListProps) {
-  const totalPrice = cartProductList.reduce(
-    (prev, product) => prev + product.price * product.quantity,
-    0,
-  );
+  // [FIXME] 의존성 배열 수정 필요
+  const totalPrice = useMemo(() => {
+    const selectedProducts = cart.filter(product => product.isSelected);
+    return selectedProducts.reduce(
+      (prev, product) => prev + product.price * product.quantity,
+      0,
+    );
+  }, [cart]);
+
   const formattedTotalPrice = formattedPrice(totalPrice);
 
   const selectAllProducts = () => {
-    const isAllSelected = cartProductList.every(product => product.isSelected);
+    const isAllSelected = cart.every(product => product.isSelected);
     if (isAllSelected) {
       updateAllProductIsNotSelected();
     } else {
       updateAllProductIsSelected();
     }
+    setCart(getCart());
   };
+
+  useEffect(() => {
+    const cartData = getCart();
+    setCart(cartData);
+  }, []);
 
   return (
     <>
@@ -38,7 +48,7 @@ export default function CartProductList({
         <div>삭제</div>
       </div>
       <div className="w-full overflow-y-auto border-y-2 border-gray-200">
-        {cartProductList.map(product => (
+        {cart.map(product => (
           <CartProduct key={product.id} product={product} />
         ))}
       </div>
