@@ -16,4 +16,5 @@ interface CartProduct {
   price: number;
   amount: number;
   quantity: number;
+  isSelected: boolean;
 }
