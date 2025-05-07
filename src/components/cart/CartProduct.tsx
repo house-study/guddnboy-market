@@ -6,33 +6,45 @@ interface CartProductProps {
 
 export default function CartProduct({ product }: CartProductProps) {
   const { price, quantity, imageURL, name } = product;
-  const productPrice = formattedPrice(price);
+  const totalPrice = formattedPrice(price * quantity);
 
   return (
-    <div className="grid grid-cols-5 items-center gap-4 px-4 py-4">
-      <input
-        type="checkbox"
-        className="h-6 w-6 rounded-sm border-2 border-gray-400"
-      />
+    <div className="grid grid-cols-5 items-center gap-4 border-b border-gray-200 py-6">
+      <div className="flex items-center justify-center">
+        <input
+          type="checkbox"
+          className="h-6 w-6 cursor-pointer rounded-sm border-2 border-gray-400"
+        />
+      </div>
       <div className="flex items-center">
-        <div className="h-24 w-24 bg-gray-100">
+        <div className="h-20 w-20 overflow-hidden rounded-md border border-gray-200 shadow-sm">
           <img
             src={imageURL}
             alt={name}
             className="h-full w-full object-cover"
           />
         </div>
-        <span className="ml-6 text-base font-medium">{name}</span>
+        <div className="ml-6 truncate">{name}</div>
       </div>
       <div className="flex items-center justify-center">
-        <button className="h-8 w-8 rounded-sm border border-gray-400">–</button>
-        <span className="mx-2">{quantity}</span>
-        <button className="h-8 w-8 rounded-sm border border-gray-400">+</button>
+        <div className="flex items-center rounded-md border border-gray-300">
+          <button className="flex h-8 w-8 cursor-pointer items-center justify-center text-gray-600 hover:bg-gray-100">
+            –
+          </button>
+          <span className="mx-2 w-8 text-center">{quantity}</span>
+          <button className="flex h-8 w-8 cursor-pointer items-center justify-center text-gray-600 hover:bg-gray-100">
+            +
+          </button>
+        </div>
       </div>
-      <span className="text-center font-semibold">{productPrice}원</span>
-      <button className="h-8 w-8 rounded-sm border border-gray-300 text-sm hover:bg-gray-100">
-        삭제
-      </button>
+      <div className="text-center font-semibold text-gray-900">
+        {totalPrice}원
+      </div>
+      <div className="flex items-center justify-center">
+        <button className="flex cursor-pointer items-center justify-center rounded-md border border-gray-300 px-3 py-1.5 text-sm text-gray-700 transition-colors hover:bg-gray-100">
+          삭제
+        </button>
+      </div>
     </div>
   );
 }
