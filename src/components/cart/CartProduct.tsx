@@ -24,7 +24,13 @@ export default function CartProduct({ product }: CartProductProps) {
   };
 
   const updateIsSelected = () => {
-    setIsChecked(!isChecked);
+    if (isChecked) {
+      setIsChecked(false);
+      updateProductIsNotSelected(id);
+    } else {
+      setIsChecked(true);
+      updateProductIsSelected(id);
+    }
   };
 
   const addQuantity = () => {
@@ -51,14 +57,6 @@ export default function CartProduct({ product }: CartProductProps) {
     }
     updateProductData();
   }, [quantity, isSelected]);
-
-  useEffect(() => {
-    if (isChecked) {
-      updateProductIsNotSelected(id);
-    } else {
-      updateProductIsSelected(id);
-    }
-  }, [isChecked]);
 
   return (
     <div className="grid grid-cols-5 items-center gap-4 border-b border-gray-200 py-6">
