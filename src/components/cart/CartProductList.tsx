@@ -9,12 +9,16 @@ import { formattedPrice } from '@/utils/price';
 
 import CartProduct from './CartProduct';
 
+const SELECTED = true;
+
 export default function CartProductList() {
   const [cart, setCart] = useState<CartProduct[]>(getCart());
 
   // [FIXME] 의존성 배열 수정 필요
   const totalPrice = useMemo(() => {
-    const selectedProducts = cart.filter(product => product.isSelected);
+    const selectedProducts = cart.filter(
+      product => product.isSelected === SELECTED,
+    );
     return selectedProducts.reduce(
       (prev, product) => prev + product.price * product.quantity,
       0,
@@ -24,7 +28,9 @@ export default function CartProductList() {
   const formattedTotalPrice = formattedPrice(totalPrice);
 
   const selectAllProducts = () => {
-    const isAllSelected = cart.every(product => product.isSelected);
+    const isAllSelected = cart.every(
+      product => product.isSelected === SELECTED,
+    );
     if (isAllSelected) {
       updateAllProductIsNotSelected();
     } else {
