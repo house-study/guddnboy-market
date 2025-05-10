@@ -35,10 +35,6 @@ export default function CartProductList({
   const isAllSelected = cart.every(product => product.isSelected === SELECTED);
 
   const selectAllProducts = () => {
-    const isAllSelected = cart.every(
-      product => product.isSelected === SELECTED,
-    );
-
     if (isAllSelected) {
       updateAllProductIsNotSelected();
     } else {
