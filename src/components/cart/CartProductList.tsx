@@ -32,6 +32,7 @@ export default function CartProductList({
   }, [cart.map(product => (product.isSelected ? product.quantity : 0))]);
 
   const formattedTotalPrice = formattedPrice(totalPrice);
+  const isAllSelected = cart.every(product => product.isSelected === SELECTED);
 
   const selectAllProducts = () => {
     const isAllSelected = cart.every(
@@ -73,8 +74,9 @@ export default function CartProductList({
             <input
               type="checkbox"
               title="전체 선택"
+              checked={isAllSelected}
               className="h-6 w-6 cursor-pointer rounded-sm border-2 border-gray-400"
-              onClick={selectAllProducts}
+              onChange={selectAllProducts}
             />
           </div>
           <div>상품 정보</div>
