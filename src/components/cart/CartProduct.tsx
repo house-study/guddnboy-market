@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import {
+  removeFromCart,
   updateProductIsNotSelected,
   updateProductIsSelected,
   updateProductQuantity,
@@ -55,6 +56,14 @@ export default function CartProduct({
     updateQuantity(newQuantity);
   };
 
+  const removeProduct = () => {
+    const isConfirmed = confirm('정말 삭제하시겠습니까?');
+    if (isConfirmed) {
+      removeFromCart(id);
+      onUpdateCart();
+    }
+  };
+
   useEffect(() => {
     function updateProductData() {
       setProductQuantity(quantity);
@@ -105,7 +114,10 @@ export default function CartProduct({
         {formattedPrice(productTotalPrice)}원
       </div>
       <div className="flex items-center justify-center">
-        <button className="flex cursor-pointer items-center justify-center rounded-md border border-gray-300 px-3 py-1.5 text-sm text-gray-700 transition-colors hover:bg-gray-100">
+        <button
+          onClick={removeProduct}
+          className="flex cursor-pointer items-center justify-center rounded-md border border-gray-300 px-3 py-1.5 text-sm text-gray-700 transition-colors hover:bg-gray-100"
+        >
           삭제
         </button>
       </div>

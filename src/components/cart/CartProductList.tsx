@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 
 import {
   getCart,
+  removeFromCart,
   updateAllProductIsNotSelected,
   updateAllProductIsSelected,
 } from '@/utils/cart';
@@ -43,6 +44,14 @@ export default function CartProductList() {
     setCart(getCart());
   };
 
+  const removeSelectedProducts = () => {
+    const selectedProducts = cart.filter(
+      product => product.isSelected === SELECTED,
+    );
+    selectedProducts.forEach(product => removeFromCart(product.id));
+    handleUpdateCart();
+  };
+
   useEffect(() => {
     handleUpdateCart();
   }, []);
@@ -77,7 +86,7 @@ export default function CartProductList() {
           <button
             title="선택 삭제"
             className="flex cursor-pointer items-center justify-center rounded-md border border-gray-300 px-3 py-1.5 text-sm text-gray-700 transition-colors hover:bg-gray-100"
-            onClick={() => {}}
+            onClick={removeSelectedProducts}
           >
             선택 삭제
           </button>
