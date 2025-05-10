@@ -7,14 +7,22 @@ import { getCart } from '@/utils/cart';
 export default function CartPage() {
   const [cart, setCart] = useState<CartProduct[]>([]);
 
-  useEffect(() => {
+  const handleUpdateCart = () => {
     const data = getCart();
     setCart(data);
+  };
+
+  useEffect(() => {
+    handleUpdateCart();
   }, []);
 
   return (
     <div className="flex h-[calc(100vh-12rem)] flex-col items-center justify-center">
-      {cart.length === 0 ? <EmptyCart /> : <CartProductList />}
+      {cart.length === 0 ? (
+        <EmptyCart />
+      ) : (
+        <CartProductList cart={cart} onUpdateCart={handleUpdateCart} />
+      )}
     </div>
   );
 }

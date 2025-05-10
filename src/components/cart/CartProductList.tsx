@@ -1,8 +1,7 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo } from 'react';
 
 import {
   clearCart,
-  getCart,
   removeFromCart,
   updateAllProductIsNotSelected,
   updateAllProductIsSelected,
@@ -13,9 +12,15 @@ import CartProduct from './CartProduct';
 
 const SELECTED = true;
 
-export default function CartProductList() {
-  const [cart, setCart] = useState<CartProduct[]>(getCart());
+interface CartProductListProps {
+  cart: CartProduct[];
+  onUpdateCart: () => void;
+}
 
+export default function CartProductList({
+  cart,
+  onUpdateCart,
+}: CartProductListProps) {
   const totalPrice = useMemo(() => {
     const selectedProducts = cart.filter(
       product => product.isSelected === SELECTED,
@@ -28,21 +33,17 @@ export default function CartProductList() {
 
   const formattedTotalPrice = formattedPrice(totalPrice);
 
-  const handleUpdateCart = () => {
-    const updatedCart = getCart();
-    setCart(updatedCart);
-  };
-
   const selectAllProducts = () => {
     const isAllSelected = cart.every(
       product => product.isSelected === SELECTED,
     );
+
     if (isAllSelected) {
       updateAllProductIsNotSelected();
     } else {
       updateAllProductIsSelected();
     }
-    setCart(getCart());
+    onUpdateCart();
   };
 
   const removeSelectedProducts = () => {
@@ -52,7 +53,7 @@ export default function CartProductList() {
         product => product.isSelected === SELECTED,
       );
       selectedProducts.forEach(product => removeFromCart(product.id));
-      handleUpdateCart();
+      onUpdateCart();
     }
   };
 
@@ -60,13 +61,9 @@ export default function CartProductList() {
     const isConfirmed = confirm('정말 장바구니를 비우시겠습니까?');
     if (isConfirmed) {
       clearCart();
-      handleUpdateCart();
+      onUpdateCart();
     }
   };
-
-  useEffect(() => {
-    handleUpdateCart();
-  }, []);
 
   return (
     <>
@@ -91,7 +88,7 @@ export default function CartProductList() {
           <CartProduct
             key={product.id}
             product={product}
-            onUpdateCart={handleUpdateCart}
+            onUpdateCart={onUpdateCart}
           />
         ))}
       </div>
