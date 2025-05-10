@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 
 import {
+  clearCart,
   getCart,
   removeFromCart,
   updateAllProductIsNotSelected,
@@ -52,18 +53,35 @@ export default function CartProductList() {
     handleUpdateCart();
   };
 
+  const removeAllProducts = () => {
+    const isConfirmed = confirm('정말 장바구니를 비우시겠습니까?');
+    if (isConfirmed) {
+      clearCart();
+      handleUpdateCart();
+    }
+  };
+
   useEffect(() => {
     handleUpdateCart();
   }, []);
 
   return (
     <>
-      <div className="grid w-full grid-cols-5 border-b py-2 text-center text-sm font-semibold">
-        <div>선택</div>
-        <div>상품 정보</div>
-        <div>수량</div>
-        <div>주문금액</div>
-        <div>삭제</div>
+      <div className="w-full border-b py-2 text-center text-sm font-semibold">
+        <div className="grid grid-cols-5 items-center gap-4">
+          <div>
+            <input
+              type="checkbox"
+              title="전체 선택"
+              className="h-6 w-6 cursor-pointer rounded-sm border-2 border-gray-400"
+              onClick={selectAllProducts}
+            />
+          </div>
+          <div>상품 정보</div>
+          <div>수량</div>
+          <div>주문금액</div>
+          <div>삭제</div>
+        </div>
       </div>
       <div className="w-full overflow-y-auto border-y-2 border-gray-200">
         {cart.map(product => (
@@ -77,18 +95,18 @@ export default function CartProductList() {
       <div className="grid w-full grid-cols-5 items-center gap-4 border-t pt-4">
         <div className="col-span-2 flex items-center gap-2">
           <button
-            title="전체 선택"
-            className="flex cursor-pointer items-center justify-center rounded-md border border-gray-300 px-3 py-1.5 text-sm text-gray-700 transition-colors hover:bg-gray-100"
-            onClick={selectAllProducts}
-          >
-            전체 선택
-          </button>
-          <button
             title="선택 삭제"
             className="flex cursor-pointer items-center justify-center rounded-md border border-gray-300 px-3 py-1.5 text-sm text-gray-700 transition-colors hover:bg-gray-100"
             onClick={removeSelectedProducts}
           >
             선택 삭제
+          </button>
+          <button
+            title="전체 삭제"
+            className="flex cursor-pointer items-center justify-center rounded-md border border-gray-300 px-3 py-1.5 text-sm text-gray-700 transition-colors hover:bg-gray-100"
+            onClick={removeAllProducts}
+          >
+            장바구니 비우기
           </button>
         </div>
         <div className="col-span-2 flex items-center justify-end gap-4 text-right">
