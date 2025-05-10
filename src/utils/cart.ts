@@ -24,13 +24,13 @@ export const addToCart = (product: Product, quantity: number) => {
 };
 
 export const removeFromCart = (productId: string) => {
-  const cart = getCart();
+  const cart: CartProduct[] = getCart();
   const updatedCart = cart.filter((item: CartProduct) => item.id !== productId);
   setLocalStorage(updatedCart);
 };
 
 export const updateProductQuantity = (productId: string, quantity: number) => {
-  const cart = getCart();
+  const cart: CartProduct[] = getCart();
   const updatedCart = cart.map((item: CartProduct) => {
     if (item.id === productId) {
       item.quantity = quantity;
@@ -41,7 +41,7 @@ export const updateProductQuantity = (productId: string, quantity: number) => {
 };
 
 export const updateProductIsSelected = (productId: string) => {
-  const cart = getCart();
+  const cart: CartProduct[] = getCart();
   const updatedCart = cart.map((item: CartProduct) => {
     if (item.id === productId) {
       item.isSelected = true;
@@ -52,7 +52,7 @@ export const updateProductIsSelected = (productId: string) => {
 };
 
 export const updateProductIsNotSelected = (productId: string) => {
-  const cart = getCart();
+  const cart: CartProduct[] = getCart();
   const updatedCart = cart.map((item: CartProduct) => {
     if (item.id === productId) {
       item.isSelected = false;
@@ -63,7 +63,7 @@ export const updateProductIsNotSelected = (productId: string) => {
 };
 
 export const updateAllProductIsSelected = () => {
-  const cart = getCart();
+  const cart: CartProduct[] = getCart();
   const updatedCart = cart.map((item: CartProduct) => {
     item.isSelected = true;
     return item;
@@ -72,7 +72,7 @@ export const updateAllProductIsSelected = () => {
 };
 
 export const updateAllProductIsNotSelected = () => {
-  const cart = getCart();
+  const cart: CartProduct[] = getCart();
   const updatedCart = cart.map((item: CartProduct) => {
     item.isSelected = false;
     return item;
