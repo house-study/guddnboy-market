@@ -14,7 +14,7 @@ const SELECTED = true;
 export default function CartProductList() {
   const [cart, setCart] = useState<CartProduct[]>(getCart());
 
-  const handleProductSelectionChange = () => {
+  const handleSelectedProductChange = () => {
     const updatedCart = getCart();
     setCart(updatedCart);
   };
@@ -63,7 +63,7 @@ export default function CartProductList() {
           <CartProduct
             key={product.id}
             product={product}
-            onSelectionChange={handleProductSelectionChange}
+            onSelectionChange={handleSelectedProductChange}
           />
         ))}
       </div>
