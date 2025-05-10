@@ -14,6 +14,11 @@ const SELECTED = true;
 export default function CartProductList() {
   const [cart, setCart] = useState<CartProduct[]>(getCart());
 
+  const handleProductSelectionChange = () => {
+    const updatedCart = getCart();
+    setCart(updatedCart);
+  };
+
   // [FIXME] 의존성 배열 수정 필요
   const totalPrice = useMemo(() => {
     const selectedProducts = cart.filter(
@@ -55,7 +60,11 @@ export default function CartProductList() {
       </div>
       <div className="w-full overflow-y-auto border-y-2 border-gray-200">
         {cart.map(product => (
-          <CartProduct key={product.id} product={product} />
+          <CartProduct
+            key={product.id}
+            product={product}
+            onSelectionChange={handleProductSelectionChange}
+          />
         ))}
       </div>
       <div className="grid w-full grid-cols-5 items-center gap-4 border-t pt-4">
