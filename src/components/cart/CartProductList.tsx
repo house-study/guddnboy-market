@@ -29,7 +29,7 @@ export default function CartProductList({
       (prev, product) => prev + product.price * product.quantity,
       0,
     );
-  }, [cart.map(product => (product.isSelected ? product.quantity : 0))]);
+  }, [cart]);
 
   const formattedTotalPrice = formattedPrice(totalPrice);
   const isAllSelected = cart.every(product => product.isSelected === SELECTED);
