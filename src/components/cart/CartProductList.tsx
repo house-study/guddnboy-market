@@ -14,11 +14,6 @@ const SELECTED = true;
 export default function CartProductList() {
   const [cart, setCart] = useState<CartProduct[]>(getCart());
 
-  const handleSelectedProductChange = () => {
-    const updatedCart = getCart();
-    setCart(updatedCart);
-  };
-
   const totalPrice = useMemo(() => {
     const selectedProducts = cart.filter(
       product => product.isSelected === SELECTED,
@@ -30,6 +25,11 @@ export default function CartProductList() {
   }, [cart.map(product => (product.isSelected ? product.quantity : 0))]);
 
   const formattedTotalPrice = formattedPrice(totalPrice);
+
+  const handleUpdateCart = () => {
+    const updatedCart = getCart();
+    setCart(updatedCart);
+  };
 
   const selectAllProducts = () => {
     const isAllSelected = cart.every(
@@ -44,8 +44,7 @@ export default function CartProductList() {
   };
 
   useEffect(() => {
-    const cartData = getCart();
-    setCart(cartData);
+    handleUpdateCart();
   }, []);
 
   return (
@@ -62,7 +61,7 @@ export default function CartProductList() {
           <CartProduct
             key={product.id}
             product={product}
-            onSelectionChange={handleSelectedProductChange}
+            onUpdateCart={handleUpdateCart}
           />
         ))}
       </div>

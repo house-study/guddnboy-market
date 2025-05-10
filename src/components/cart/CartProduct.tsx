@@ -9,12 +9,12 @@ import { formattedPrice } from '@/utils/price';
 
 interface CartProductProps {
   product: CartProduct;
-  onSelectionChange: () => void;
+  onUpdateCart: () => void;
 }
 
 export default function CartProduct({
   product,
-  onSelectionChange,
+  onUpdateCart,
 }: CartProductProps) {
   const { id, price, quantity, imageURL, name, amount, isSelected } = product;
   const [productTotalPrice, setProductTotalPrice] = useState(price * quantity);
@@ -25,7 +25,7 @@ export default function CartProduct({
     setProductQuantity(newQuantity);
     setProductTotalPrice(price * newQuantity);
     updateProductQuantity(id, newQuantity);
-    onSelectionChange();
+    onUpdateCart();
   };
 
   const updateIsSelected = () => {
@@ -36,7 +36,7 @@ export default function CartProduct({
       setIsChecked(true);
       updateProductIsSelected(id);
     }
-    onSelectionChange();
+    onUpdateCart();
   };
 
   const addQuantity = () => {
