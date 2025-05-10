@@ -21,6 +21,7 @@ export default function CartProduct({
   const [productTotalPrice, setProductTotalPrice] = useState(price * quantity);
   const [productQuantity, setProductQuantity] = useState(quantity);
   const [isProductSelected, setIsProductSelected] = useState(isSelected);
+  const productPrice = formattedPrice(price);
 
   const updateQuantity = (newQuantity: number) => {
     setProductQuantity(newQuantity);
@@ -91,7 +92,12 @@ export default function CartProduct({
             className="h-full w-full object-cover"
           />
         </div>
-        <div className="ml-6 truncate">{name}</div>
+        <div className="ml-6 flex flex-col truncate">
+          <div className="text-md font-medium text-gray-800">{name}</div>
+          <div className="text-sm font-semibold text-gray-600">
+            {productPrice}원
+          </div>
+        </div>
       </div>
       <div className="flex items-center justify-center">
         <div className="flex items-center rounded-md border border-gray-300">
