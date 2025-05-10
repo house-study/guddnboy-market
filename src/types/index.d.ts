@@ -7,3 +7,14 @@ interface Product {
   price: number;
   amount: number;
 }
+
+interface CartProduct {
+  id: string;
+  imageURL: string;
+  name: string;
+  origin: string;
+  price: number;
+  amount: number;
+  quantity: number;
+  isSelected: boolean;
+}
