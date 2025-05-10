@@ -25,6 +25,7 @@ export default function CartProduct({
     setProductQuantity(newQuantity);
     setProductTotalPrice(price * newQuantity);
     updateProductQuantity(id, newQuantity);
+    onSelectionChange();
   };
 
   const updateIsSelected = () => {
