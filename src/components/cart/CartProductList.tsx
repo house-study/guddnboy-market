@@ -19,7 +19,6 @@ export default function CartProductList() {
     setCart(updatedCart);
   };
 
-  // [FIXME] 의존성 배열 수정 필요
   const totalPrice = useMemo(() => {
     const selectedProducts = cart.filter(
       product => product.isSelected === SELECTED,
@@ -28,7 +27,7 @@ export default function CartProductList() {
       (prev, product) => prev + product.price * product.quantity,
       0,
     );
-  }, [cart]);
+  }, [cart.map(product => (product.isSelected ? product.quantity : 0))]);
 
   const formattedTotalPrice = formattedPrice(totalPrice);
 
