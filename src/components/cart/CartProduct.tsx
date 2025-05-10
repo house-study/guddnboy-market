@@ -19,7 +19,7 @@ export default function CartProduct({
   const { id, price, quantity, imageURL, name, amount, isSelected } = product;
   const [productTotalPrice, setProductTotalPrice] = useState(price * quantity);
   const [productQuantity, setProductQuantity] = useState(quantity);
-  const [isChecked, setIsChecked] = useState(isSelected);
+  const [isProductSelected, setIsProductSelected] = useState(isSelected);
 
   const updateQuantity = (newQuantity: number) => {
     setProductQuantity(newQuantity);
@@ -29,11 +29,11 @@ export default function CartProduct({
   };
 
   const updateIsSelected = () => {
-    if (isChecked) {
-      setIsChecked(false);
+    if (isProductSelected) {
+      setIsProductSelected(false);
       updateProductIsNotSelected(id);
     } else {
-      setIsChecked(true);
+      setIsProductSelected(true);
       updateProductIsSelected(id);
     }
     onUpdateCart();
@@ -59,7 +59,7 @@ export default function CartProduct({
     function updateProductData() {
       setProductQuantity(quantity);
       setProductTotalPrice(price * quantity);
-      setIsChecked(isSelected);
+      setIsProductSelected(isSelected);
     }
     updateProductData();
   }, [quantity, isSelected]);
@@ -70,7 +70,7 @@ export default function CartProduct({
         <input
           type="checkbox"
           className="h-6 w-6 cursor-pointer rounded-sm border-2 border-gray-400"
-          checked={isChecked}
+          checked={isProductSelected}
           onChange={updateIsSelected}
         />
       </div>
