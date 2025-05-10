@@ -46,11 +46,14 @@ export default function CartProductList() {
   };
 
   const removeSelectedProducts = () => {
-    const selectedProducts = cart.filter(
-      product => product.isSelected === SELECTED,
-    );
-    selectedProducts.forEach(product => removeFromCart(product.id));
-    handleUpdateCart();
+    const isConfirmed = confirm('정말 선택한 상품을 삭제하시겠습니까?');
+    if (isConfirmed) {
+      const selectedProducts = cart.filter(
+        product => product.isSelected === SELECTED,
+      );
+      selectedProducts.forEach(product => removeFromCart(product.id));
+      handleUpdateCart();
+    }
   };
 
   const removeAllProducts = () => {
