@@ -38,7 +38,7 @@ export default function CartProductList({
   return (
     <>
       <div className="w-full border-b py-2 text-center text-sm font-semibold">
-        <div className="grid grid-cols-5 items-center gap-4">
+        <div className="grid grid-cols-4 items-center gap-4 lg:grid-cols-5">
           <div>
             <input
               type="checkbox"
@@ -51,7 +51,7 @@ export default function CartProductList({
           <div>상품 정보</div>
           <div>수량</div>
           <div>주문금액</div>
-          <div>삭제</div>
+          <div className="hidden lg:block">삭제</div>
         </div>
       </div>
       <div className="w-full overflow-y-auto border-y-2 border-gray-200">

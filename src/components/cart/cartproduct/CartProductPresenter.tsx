@@ -22,7 +22,7 @@ export default function CartProductPresenter({
   const totalPrice = formattedPrice(price * quantity);
 
   return (
-    <div className="grid grid-cols-5 items-center gap-4 border-b border-gray-200 py-6">
+    <div className="grid grid-cols-4 items-center gap-4 border-b border-gray-200 py-6 lg:grid-cols-5">
       <div className="flex items-center justify-center">
         <input
           type="checkbox"
@@ -66,7 +66,7 @@ export default function CartProductPresenter({
       <div className="text-center font-semibold text-gray-900">
         {totalPrice}원
       </div>
-      <div className="flex items-center justify-center">
+      <div className="hidden items-center justify-center lg:flex">
         <button
           onClick={onRemoveProduct}
           className="flex cursor-pointer items-center justify-center rounded-md border border-gray-300 px-3 py-1.5 text-sm text-gray-700 transition-colors hover:bg-gray-100"
