@@ -1,12 +1,10 @@
-const CART_KEY = 'cart';
-
-export const getLocalStorage = () => {
-  const cart = localStorage.getItem(CART_KEY);
+export const getLocalStorage = (keyName: string) => {
+  const cart = localStorage.getItem(keyName);
   return cart ? JSON.parse(cart) : [];
 };
 
-export const setLocalStorage = (cart: CartProduct[]) => {
-  localStorage.setItem(CART_KEY, JSON.stringify(cart));
+export const setLocalStorage = (keyName: string, cart: CartProduct[]) => {
+  localStorage.setItem(keyName, JSON.stringify(cart));
 };
 
 export const clearLocalStorage = () => {

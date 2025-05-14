@@ -4,8 +4,10 @@ import {
   setLocalStorage,
 } from './localStorage';
 
+const CART_KEY = 'cart';
+
 export const getCart = (): CartProduct[] => {
-  return getLocalStorage();
+  return getLocalStorage(CART_KEY);
 };
 
 export const addToCart = (product: Product, quantity: number) => {
@@ -20,13 +22,13 @@ export const addToCart = (product: Product, quantity: number) => {
     cart.push({ ...product, quantity, isSelected: false });
   }
 
-  setLocalStorage(cart);
+  setLocalStorage(CART_KEY, cart);
 };
 
 export const removeFromCart = (productId: string) => {
   const cart: CartProduct[] = getCart();
   const updatedCart = cart.filter((item: CartProduct) => item.id !== productId);
-  setLocalStorage(updatedCart);
+  setLocalStorage(CART_KEY, updatedCart);
 };
 
 export const updateProductQuantity = (productId: string, quantity: number) => {
@@ -37,7 +39,7 @@ export const updateProductQuantity = (productId: string, quantity: number) => {
     }
     return item;
   });
-  setLocalStorage(updatedCart);
+  setLocalStorage(CART_KEY, updatedCart);
 };
 
 export const updateProductIsSelected = (productId: string) => {
@@ -48,7 +50,7 @@ export const updateProductIsSelected = (productId: string) => {
     }
     return item;
   });
-  setLocalStorage(updatedCart);
+  setLocalStorage(CART_KEY, updatedCart);
 };
 
 export const updateProductIsNotSelected = (productId: string) => {
@@ -59,7 +61,7 @@ export const updateProductIsNotSelected = (productId: string) => {
     }
     return item;
   });
-  setLocalStorage(updatedCart);
+  setLocalStorage(CART_KEY, updatedCart);
 };
 
 export const updateAllProductIsSelected = () => {
@@ -68,7 +70,7 @@ export const updateAllProductIsSelected = () => {
     item.isSelected = true;
     return item;
   });
-  setLocalStorage(updatedCart);
+  setLocalStorage(CART_KEY, updatedCart);
 };
 
 export const updateAllProductIsNotSelected = () => {
@@ -77,7 +79,7 @@ export const updateAllProductIsNotSelected = () => {
     item.isSelected = false;
     return item;
   });
-  setLocalStorage(updatedCart);
+  setLocalStorage(CART_KEY, updatedCart);
 };
 
 export const clearCart = () => {
