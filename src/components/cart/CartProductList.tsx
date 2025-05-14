@@ -1,6 +1,6 @@
 import { formattedPrice } from '@/utils/price';
 
-import CartProductContainer from './cartproduct/CartProductContainer';
+import CartProductContainer from './CartProductContainer';
 
 interface CartProductListProps {
   cart: CartProduct[];
