@@ -5,10 +5,11 @@ import CartProductContainer from './cartproduct/CartProductContainer';
 interface CartProductListProps {
   cart: CartProduct[];
   totalPrice: number;
+  isAllSelected: boolean;
+  selectedProducts: CartProduct[];
   removeSelectedProducts: () => void;
   removeAllProducts: () => void;
   selectAllProducts: () => void;
-  isAllSelected: boolean;
   onUpdateQuantity: (id: string, newQuantity: number) => void;
   onUpdateIsSelected: (id: string, isSelected: boolean) => void;
   onRemoveProduct: (id: string) => void;
@@ -17,15 +18,22 @@ interface CartProductListProps {
 export default function CartProductList({
   cart,
   totalPrice,
+  isAllSelected,
+  selectedProducts,
   removeSelectedProducts,
   removeAllProducts,
   selectAllProducts,
-  isAllSelected,
   onUpdateQuantity,
   onUpdateIsSelected,
   onRemoveProduct,
 }: CartProductListProps) {
   const formattedTotalPrice = formattedPrice(totalPrice);
+
+  const isProductSelected = (productId: string) => {
+    return selectedProducts.some(
+      selectedProduct => selectedProduct.id === productId,
+    );
+  };
 
   return (
     <>
@@ -51,6 +59,7 @@ export default function CartProductList({
           <CartProductContainer
             key={product.id}
             product={product}
+            isSelected={isProductSelected(product.id)}
             onUpdateQuantity={onUpdateQuantity}
             onUpdateIsSelected={onUpdateIsSelected}
             onRemoveProduct={onRemoveProduct}

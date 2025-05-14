@@ -6,25 +6,19 @@ import {
   clearCart,
   getCart,
   removeFromCart,
-  updateAllProductIsNotSelected,
-  updateAllProductIsSelected,
-  updateProductIsNotSelected,
-  updateProductIsSelected,
   updateProductQuantity,
 } from '@/utils/cart';
 
 export default function CartPage() {
   const [cart, setCart] = useState<CartProduct[]>([]);
+  const [selectedProducts, setSelectedProducts] = useState<CartProduct[]>([]);
 
   const totalPrice = useMemo(() => {
-    const selectedProducts = cart.filter(
-      product => product.isSelected === true,
-    );
     return selectedProducts.reduce(
       (prev, product) => prev + product.price * product.quantity,
       0,
     );
-  }, [cart]);
+  }, [selectedProducts]);
 
   const handleUpdateQuantity = (id: string, newQuantity: number) => {
     updateProductQuantity(id, newQuantity);
@@ -33,26 +27,28 @@ export default function CartPage() {
         product.id === id ? { ...product, quantity: newQuantity } : product,
       ),
     );
+    if (selectedProducts.some(product => product.id === id)) {
+      setSelectedProducts(prevSelected =>
+        prevSelected.map(product =>
+          product.id === id ? { ...product, quantity: newQuantity } : product,
+        ),
+      );
+    }
   };
 
   const handleUpdateIsSelected = (id: string, isSelected: boolean) => {
-    if (isSelected) {
-      updateProductIsNotSelected(id);
-    } else {
-      updateProductIsSelected(id);
-    }
-    setCart(prevCart =>
-      prevCart.map(product =>
-        product.id === id ? { ...product, isSelected: !isSelected } : product,
-      ),
-    );
+    const productToSelect = cart.find(product => product.id === id);
+    if (!productToSelect) return;
+
+    setSelectedProducts(prevSelected => {
+      if (isSelected) {
+        return prevSelected.filter(product => product.id !== id);
+      }
+      return [...prevSelected, productToSelect];
+    });
   };
 
   const removeSelectedProducts = () => {
-    const selectedProducts = cart.filter(
-      product => product.isSelected === true,
-    );
-
     if (selectedProducts.length === 0) {
       alert('상품을 선택해주세요.');
       return;
@@ -60,8 +56,13 @@ export default function CartPage() {
 
     const isConfirmed = confirm('정말 선택한 상품을 삭제하시겠습니까?');
     if (isConfirmed) {
-      selectedProducts.forEach(product => removeFromCart(product.id));
-      setCart(prevCart => prevCart.filter(product => !product.isSelected));
+      const selectedIds = selectedProducts.map(product => product.id);
+      selectedIds.forEach(id => removeFromCart(id));
+
+      setCart(prevCart =>
+        prevCart.filter(product => !selectedIds.includes(product.id)),
+      );
+      setSelectedProducts([]);
     }
   };
 
@@ -70,21 +71,12 @@ export default function CartPage() {
     if (isConfirmed) {
       clearCart();
       setCart([]);
+      setSelectedProducts([]);
     }
   };
 
   const selectAllProducts = () => {
-    if (isAllSelected) {
-      updateAllProductIsNotSelected();
-      setCart(prevCart =>
-        prevCart.map(product => ({ ...product, isSelected: false })),
-      );
-    } else {
-      updateAllProductIsSelected();
-      setCart(prevCart =>
-        prevCart.map(product => ({ ...product, isSelected: true })),
-      );
-    }
+    setSelectedProducts(isAllSelected ? [] : [...cart]);
   };
 
   const handleRemoveProduct = (id: string) => {
@@ -92,10 +84,20 @@ export default function CartPage() {
     if (isConfirmed) {
       removeFromCart(id);
       setCart(prevCart => prevCart.filter(product => product.id !== id));
+      setSelectedProducts(prevSelected =>
+        prevSelected.filter(product => product.id !== id),
+      );
     }
   };
 
-  const isAllSelected = cart.every(product => product.isSelected === true);
+  const isAllSelected = useMemo(() => {
+    return (
+      cart.length > 0 &&
+      cart.every(product =>
+        selectedProducts.some(selected => selected.id === product.id),
+      )
+    );
+  }, [cart, selectedProducts]);
 
   useEffect(() => {
     const data = getCart();
@@ -110,10 +112,11 @@ export default function CartPage() {
         <CartProductList
           cart={cart}
           totalPrice={totalPrice}
+          isAllSelected={isAllSelected}
+          selectedProducts={selectedProducts}
           removeSelectedProducts={removeSelectedProducts}
           removeAllProducts={removeAllProducts}
           selectAllProducts={selectAllProducts}
-          isAllSelected={isAllSelected}
           onUpdateQuantity={handleUpdateQuantity}
           onUpdateIsSelected={handleUpdateIsSelected}
           onRemoveProduct={handleRemoveProduct}

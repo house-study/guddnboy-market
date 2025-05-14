@@ -2,6 +2,7 @@ import { formattedPrice } from '@/utils/price';
 
 interface CartProductPresenterProps {
   product: CartProduct;
+  isSelected: boolean;
   onUpdateIsSelected: () => void;
   onAddQuantity: () => void;
   onSubtractQuantity: () => void;
@@ -10,12 +11,13 @@ interface CartProductPresenterProps {
 
 export default function CartProductPresenter({
   product,
+  isSelected,
   onUpdateIsSelected,
   onAddQuantity,
   onSubtractQuantity,
   onRemoveProduct,
 }: CartProductPresenterProps) {
-  const { price, quantity, imageURL, name, isSelected } = product;
+  const { price, quantity, imageURL, name } = product;
   const productPrice = formattedPrice(price);
   const totalPrice = formattedPrice(price * quantity);
 

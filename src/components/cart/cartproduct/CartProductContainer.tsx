@@ -2,6 +2,7 @@ import CartProductPresenter from './CartProductPresenter';
 
 interface CartProductContainerProps {
   product: CartProduct;
+  isSelected: boolean;
   onUpdateQuantity: (id: string, newQuantity: number) => void;
   onUpdateIsSelected: (id: string, isSelected: boolean) => void;
   onRemoveProduct: (id: string) => void;
@@ -9,13 +10,14 @@ interface CartProductContainerProps {
 
 export default function CartProductContainer({
   product,
+  isSelected,
   onUpdateQuantity,
   onUpdateIsSelected,
   onRemoveProduct,
 }: CartProductContainerProps) {
-  const { id, quantity, amount, isSelected } = product;
+  const { id, quantity, amount } = product;
 
-  const updateQuantity = (change: number) => {
+  const handleUpdateQuantity = (change: number) => {
     const newQuantity = quantity + change;
     if (newQuantity < 1 || newQuantity > amount) {
       return;
@@ -23,12 +25,12 @@ export default function CartProductContainer({
     onUpdateQuantity(id, newQuantity);
   };
 
-  const addQuantity = () => {
-    updateQuantity(1);
+  const handleAddQuantity = () => {
+    handleUpdateQuantity(1);
   };
 
-  const subtractQuantity = () => {
-    updateQuantity(-1);
+  const handleSubtractQuantity = () => {
+    handleUpdateQuantity(-1);
   };
 
   const handleUpdateIsSelected = () => {
@@ -42,9 +44,10 @@ export default function CartProductContainer({
   return (
     <CartProductPresenter
       product={product}
+      isSelected={isSelected}
       onUpdateIsSelected={handleUpdateIsSelected}
-      onAddQuantity={addQuantity}
-      onSubtractQuantity={subtractQuantity}
+      onAddQuantity={handleAddQuantity}
+      onSubtractQuantity={handleSubtractQuantity}
       onRemoveProduct={handleRemoveProduct}
     />
   );
