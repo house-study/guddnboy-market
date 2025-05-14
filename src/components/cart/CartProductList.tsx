@@ -1,72 +1,31 @@
-import { useMemo } from 'react';
-
-import {
-  clearCart,
-  removeFromCart,
-  updateAllProductIsNotSelected,
-  updateAllProductIsSelected,
-} from '@/utils/cart';
 import { formattedPrice } from '@/utils/price';
 
-import CartProduct from './CartProduct';
-
-const SELECTED = true;
+import CartProductContainer from './cartproduct/CartProductContainer';
 
 interface CartProductListProps {
   cart: CartProduct[];
-  onUpdateCart: () => void;
+  totalPrice: number;
+  removeSelectedProducts: () => void;
+  removeAllProducts: () => void;
+  selectAllProducts: () => void;
+  isAllSelected: boolean;
+  onUpdateQuantity: (id: string, newQuantity: number) => void;
+  onUpdateIsSelected: (id: string, isSelected: boolean) => void;
+  onRemoveProduct: (id: string) => void;
 }
 
 export default function CartProductList({
   cart,
-  onUpdateCart,
+  totalPrice,
+  removeSelectedProducts,
+  removeAllProducts,
+  selectAllProducts,
+  isAllSelected,
+  onUpdateQuantity,
+  onUpdateIsSelected,
+  onRemoveProduct,
 }: CartProductListProps) {
-  const totalPrice = useMemo(() => {
-    const selectedProducts = cart.filter(
-      product => product.isSelected === SELECTED,
-    );
-    return selectedProducts.reduce(
-      (prev, product) => prev + product.price * product.quantity,
-      0,
-    );
-  }, [cart]);
-
   const formattedTotalPrice = formattedPrice(totalPrice);
-  const isAllSelected = cart.every(product => product.isSelected === SELECTED);
-
-  const selectAllProducts = () => {
-    if (isAllSelected) {
-      updateAllProductIsNotSelected();
-    } else {
-      updateAllProductIsSelected();
-    }
-    onUpdateCart();
-  };
-
-  const removeSelectedProducts = () => {
-    const selectedProducts = cart.filter(
-      product => product.isSelected === SELECTED,
-    );
-
-    if (selectedProducts.length === 0) {
-      alert('상품을 선택해주세요.');
-      return;
-    }
-
-    const isConfirmed = confirm('정말 선택한 상품을 삭제하시겠습니까?');
-    if (isConfirmed) {
-      selectedProducts.forEach(product => removeFromCart(product.id));
-      onUpdateCart();
-    }
-  };
-
-  const removeAllProducts = () => {
-    const isConfirmed = confirm('정말 장바구니를 비우시겠습니까?');
-    if (isConfirmed) {
-      clearCart();
-      onUpdateCart();
-    }
-  };
 
   return (
     <>
@@ -89,10 +48,12 @@ export default function CartProductList({
       </div>
       <div className="w-full overflow-y-auto border-y-2 border-gray-200">
         {cart.map(product => (
-          <CartProduct
+          <CartProductContainer
             key={product.id}
             product={product}
-            onUpdateCart={onUpdateCart}
+            onUpdateQuantity={onUpdateQuantity}
+            onUpdateIsSelected={onUpdateIsSelected}
+            onRemoveProduct={onRemoveProduct}
           />
         ))}
       </div>
