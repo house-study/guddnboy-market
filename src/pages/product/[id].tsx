@@ -3,6 +3,7 @@ import { ChangeEvent, useState } from 'react';
 
 import { getProductDetail } from '@/api/products';
 import ErrorComponent from '@/components/ErrorComponent';
+import { addToCart } from '@/utils/cart';
 import { formattedPrice, calculateTotalPrice } from '@/utils/price';
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
@@ -50,12 +51,23 @@ export default function ProductDetail({
     );
   }
 
+  const [quantity, setQuantity] = useState<number>(1);
   const [totalPrice, setTotalPrice] = useState<number>(product.price);
 
-  const handlePriceChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const quantity = Number(e.target.value);
+  const handlePriceChange = (quantity: number) => {
     const newTotalPrice = calculateTotalPrice(quantity, product.price);
     setTotalPrice(newTotalPrice);
+  };
+
+  const handleQuantityChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const newQuantity = Number(e.target.value);
+    setQuantity(newQuantity);
+    handlePriceChange(newQuantity);
+  };
+
+  const addProductToCart = () => {
+    addToCart(product, quantity);
+    alert('장바구니에 상품이 추가되었습니다.');
   };
 
   return (
@@ -81,9 +93,9 @@ export default function ProductDetail({
             type="number"
             min="1"
             max={product.amount}
-            defaultValue="1"
+            value={quantity}
             className="w-full rounded border border-gray-300 px-3 py-2 text-sm focus:ring-2 focus:ring-lime-400 focus:outline-none"
-            onChange={handlePriceChange}
+            onChange={handleQuantityChange}
           />
           <div className="flex items-center justify-between text-lg font-bold text-gray-800">
             <span>총 상품 금액</span>
@@ -94,7 +106,10 @@ export default function ProductDetail({
           <button className="flex-1 bg-black py-3 text-sm font-semibold text-white hover:cursor-pointer hover:bg-gray-800">
             BUY
           </button>
-          <button className="flex-1 border border-black py-3 text-sm font-semibold hover:cursor-pointer hover:bg-gray-200">
+          <button
+            className="flex-1 border border-black py-3 text-sm font-semibold hover:cursor-pointer hover:bg-gray-200"
+            onClick={addProductToCart}
+          >
             ADD TO CART
           </button>
         </div>
