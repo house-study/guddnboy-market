@@ -13,22 +13,22 @@ export default function CartProductContainer({
   onUpdateIsSelected,
   onRemoveProduct,
 }: CartProductContainerProps) {
-  const { id, price, quantity, imageURL, name, amount, isSelected } = product;
+  const { id, quantity, amount, isSelected } = product;
 
-  const addQuantity = () => {
-    const newQuantity = quantity + 1;
-    if (newQuantity > amount) {
+  const updateQuantity = (change: number) => {
+    const newQuantity = quantity + change;
+    if (newQuantity < 1 || newQuantity > amount) {
       return;
     }
     onUpdateQuantity(id, newQuantity);
   };
 
+  const addQuantity = () => {
+    updateQuantity(1);
+  };
+
   const subtractQuantity = () => {
-    const newQuantity = quantity - 1;
-    if (newQuantity < 1) {
-      return;
-    }
-    onUpdateQuantity(id, newQuantity);
+    updateQuantity(-1);
   };
 
   const handleUpdateIsSelected = () => {
